@@ -1,0 +1,809 @@
+﻿// Jefferson Gonzalez
+// SQL SERVER
+
+# Es recomendable al crear una base de datos guardar los archivos en una particion en caso de errores en el sistema operativo.
+
+Extenciones de archivos:
+    mdf -> es la base de dbatos
+    ldg -> archivo de base de datos que almacena todos los registros de transacciones/eventos, que se ejecuta en la base de datos.
+
+# IDENTITY: es lo mismo que auto_increment
+
+SENTENCIAS BASICAS
+
+* Mostrar bases de datos
+    (select * from sys.databases;)
+
+// Contenido elaborado por JEGOMA
+// MySQL
+
+Instalamos MariaDB
+#Agregamos la variable de entorno de MariaDB a path "C:\Program Files\MariaDB 10.6\bin"
+Verificamos Instalacion con CMD:
+#mysql -u root -p xxx -> xxx equivale a la paswor asignada a MDB
+Si queremos saber que tipos de datos maneja MDB
+#show databases;
+si queremos seleccionar una base en especifico
+#use + tipo de base;
+
+Instalamos un entorno de control de MDB y creamos conección
+-mysql Workbench
+
+De Pregunta a Query
+
+-> Lo que quieres mostrar = SELECT
+-> De donde voy a tomar los datos = FROM
+-> Los filtros de los datos que quieres mostrar = WHERE
+-> Los rubros por los que me interesa agrupar la informacion = GROUP BY
+-> El orden en que quiero presentar mi informacion = ORDER BY
+-> Los filtros que quiero que mis datos agrupados tengan = HAVING
+
+SENTENCIAS BASICAS
+
+* Comentar codigo
+    (--)
+
+* Crear una base de datos 
+    (create database nombreBD)
+
+* usar una base de datos
+    (use nombreBD)
+
+* Mostrar bases de datos
+    (show databases)
+
+* Mostrar tablas de la base de datos
+    (show tables)
+
+* borrar base de datos 
+    (drop database nombreBD)
+
+* eliminar tablas
+    (drop table nombreTabla)
+
+* CREAR BASE DE DATOS definiendo por default el character set y el collate
+    (create database nombreBD character set utf8mb4 collate utf8mb4_spanish_ci;) 
+  
+        "utf8mb4 perimite almacenar emojis"
+
+* crear una tabla 
+    create table nombreTabla(
+  
+        nombreCampo tipodato otrasCaracteristicas
+  
+    );
+
+* crear campo 
+    (nombreCampo tipo dato otrasCaracteristicas)
+
+* Eliminar registros duplicados y devolver solo los unicos
+    (select distinc campo1, campo2 from nombreTabla)
+
+* limitar cantidad de registros solicitados
+    (select campo1, campo2, campo3 from nombreTabla limit 'CantidadRegistros';)
+
+* limitar cantidad de registros a mostrar desde cierto registro
+    (select campo1, campo2, campo3 from nombreTabla offset 'valorComienzo' limit 'CantidadRegistros')
+
+CARACTERISTICAS DE COLUMNA
+
+# NOT NULL "Obligatorio" | NULL "No obligatorio" : Establecemos si el valor
+
+de la columna debe ser rellenado obligatoriamente o no.
+
+# AUTO_INCREMENT: Establece un valor inicial para un incremento posterior con la insercion de cada nuevo registro.
+
+# PRIMARY KEY: no se puede repetir el valor del campo.
+
+# DEFAULT 'valor': En caso de no colocar ningun dato se coloca el valor
+
+asignado.
+
+# CURRENT_TIMESTAMP: Toma la fecha automaticamente en la que se ingresa un registro
+
+TIPOS DE DATOS "campos"
+
+#Tipos numericos
+    tipo - Bytes - Valor min -Valor max
+    TINYINT 1 -128 127
+    SMALLINT 2 -32768 32767
+    MEDIUMINT 3-8388608 8388607
+    INT o INTEGER 4 -2147483648 2147483647
+    BIGINT 8 -9.22337E+18 9223372036854775807
+
+#Tipos cadena
+    tipo - tamaño de almacenamiento
+    CHAR(n) n bytes
+    VARCHAR(n) n+1 bytes
+    TINYBLOB, TINYTEXT longitud+1 bytes
+    BLOB, TEXT longitud+2 bytes
+    MEDIUMBLOB, MEDIUMTEXT longitud+3 bytes
+    LONGBLOB, LONGTEXT longitud+4 bytes
+    ENUM('value1','value2',...) 1 o dos bytes dependiendo del numero de valores
+    SET('value1','value2',...) 1,2,3,4 o 8 bytes, dependiendo del numero de valor
+
+#Tipos de fecha
+    tipo - tamaño de almacenamiento
+    DATE 3 bytes -> fecha
+    SMALLDATETIME 4 bytes -> fecha,hora
+    DATETIME 8 bytes - fecha,hora,milisegundos
+    TIMESTAMP 4 bytes
+    TIME 3 bytes -> hora
+    YEAR 1 byte -> año
+
+VARIABLES EN MySQL
+
+La longituda maxima de una variable es de 64 caracteres
+
+* Declara una variable:
+    (set @nombre_variable = 5)
+
+* Leer una variable
+    (select @nombre_variable as alias_variable;)
+
+ALTERAR UNA TABLA MYSQL
+
+* Muestra las tablas de nuestra base de datos 
+    (show tables;)
+
+* Muestra las columnas de nuestra tabla 
+    (show columns from nombreTabla;)
+
+* Muestra el query con el que fue creada la tabla 
+    (show create table nombreTabla;)
+
+* Renombra la tabla 
+    (rename table nombreOriginal to nuevoNombre;)
+
+* Agregar un campo en una tabla ya creada 
+    (alter table nombreTabla add nombreCampo int not null "caracteristica";)
+
+* cambiar el nombre de un campo y modificamos el tipo de dato
+    (alter table nombreTabla change nombreOrignalCampo nuevoNombreCapo smallint not null "caracteristicas";)
+
+* Modificar el campo de una tabla
+    (alter table nombreTabla modify column nombreCampo caracteristicas a modificar)
+
+* si queremos colocar un campo despues de uno 
+    (after nombreCampo)
+
+RESTRICCIONES DE INTEGRIDAD REFERENCIAL
+
+# RESTRICT -> Es el comportamiento por defecto, que impide realizar modificaciones que atentan contra la integridad referencial.
+
+# CASCADE -> Borra los registros de la tabla dependiente cuando se borra el registro de la tabla principal (en una sentencia DELETE), o actualiza el valor de la clave secundaria cuando se actualiza el valor de la clave referenciada (en una sentencia UPDATE).
+
+# SET NULL -> Establece a NULL el valor de la clave secundaria cuando se elimina el registro en la tabla principal o se modifica el valor del campo referenciado.
+
+# NO ACTION -> En MySQL funciona igual que RESTRICT
+
+LLAVE FORANEA
+
+* crear llave forane
+    (alter table nombreTabla add constraint nombreLLaveForanea foreign key (campo tabla)
+    references nombreOtraTabla (campoOtraTabla) on delete cascade on update cascade;)
+
+* eliminar llaves foraneas 
+  // constraint o index en caso de que no elimine;
+    (alter table nombreTabla drop constraint nombreLlaveForanea;)
+
+* Desactivaremos las restricciones con:
+    (set foreign_key_checks=0;) para reabilitar las llaves cambiamos el 0 por el 1
+
+LLAVE PRIMARIA
+
+* crear llave primaria
+    constraint nombreLlave primary key (campoLlavePrimaria)
+
+LLAVE COMPUESTA
+
+* crear llave compuesta
+    (primary key (campo1,campo2);)
+
+DEFINICION TERMINOS
+
+# constraint = Restriccion
+
+# into = dentro
+
+# query = consulta
+
+# where = donde
+
+# set = establecer
+
+# distinct = distintivo
+
+# as = como
+
+# by = por
+
+# count = contar
+
+# desc = descripocion
+
+# * = todos los campos
+
+# between = entre
+
+# like = como
+
+# inner = interno
+
+# left = izquierdo
+
+# join = unir
+
+# right = derecho
+
+# procedure = procedimiento
+
+# begin = empezar
+
+TIPOS DE RETIPOS DE RESTRICCIONES
+
+# cascade // este tipo borra o actualiza todas las tablas con conexion
+
+# set null // se aceptan valores null
+
+# restrict // no se puede borrar o actualizar las tablas
+
+# no action // no tiene ninguna accion se puede utilizar para puras llaves
+
+FILTRAS REGISTROS POR WHERE
+WHERE -> Donde
+
+    Operadores
+    = Igual que
+    < Menor que
+    > Mayor que
+    <= Menor o igual que
+    >= Mayor o igual que
+    != Diferente que
+    
+    *(where nombreCampo operadoresAritmeticos datoABuscar)
+
+Esta busqueda tambien se puede filtrar por el tipo de datos que queremos buscar ej:
+
+    *(select * from nombreTabla where YEAR(nombreCampo) = 'valor a buscar';)
+    *(select * from nombreTabla where MONTH(nombreCampo) between 'valor1' and 'valor2';)
+
+Tambien podemos filtrar la busqueda solo para la informacion que null
+IS NULL -> Registro vacio
+
+    *(select * from nombreTabla where nombreCampo is null;)
+    -> De esta manera solo se mostraran los registros que se encuentren en null
+
+Tambien podemos filtrar la busqueda solo para la informacion que es not null
+is not null -> Registros no vacios
+
+    *(select * from  nombreTabla where nombreCampo is not null;)
+    -> De esta manera la consulta solo nos entregara los registros que no son null
+
+FILTRAR POR LIKE
+LIKE -> Sea como, sea parecido
+
+    '%Valor a Buscar%' -> Busca todos los registros que contengan ese valor
+    'Valor a Buscar%' -> Busca todos los registros que empiecen por ese valor
+    '%valor a Buscar' -> Busca todos los registros que terminen por ese valor
+    
+    *(select * from nombreTabla where nombreCampo like '%valor a Buscar';)
+
+FILTRAR POR BETWEEN
+BETWEEN -> Entre
+AND -> Y    
+
+    *(select * from nombreTabla where nombreCampo between 'valor a buscar' and 'valor a buscar';)
+
+FILTRAR POR HAVING
+HAVING -> tenga
+
+    *(select * from nombreTabla having nombreCampo'as' operadorAr valorAbuscar)
+
+-> having funciona una ves ya se agrupa y se crean campos dinamicos 'as' que cuentan 
+o suman valores entre otros, por esto mismo no funcion where con campos dinamicos.
+-> Tambien se puede utilizar para consultar un resultado con group by, pues este
+muestra lo que hay despues de esa agrupacion.
+
+LEER E INSERTEAR REGISTROS
+
+* Leeremos los registros insertados de tabla con
+    (select * from nombreTabla;)
+
+* Insertamos nuevos registros con:
+    (insert into tabla (campo1,compo2...) values ("valor campo 1", "valor campo 2");)
+
+AGRUPAR REGISTROS O CONSULTAS
+GROUP BY -> Agrupa por
+
+    *(select * from nombreTabla group by nombreCampo_porelquequeremosagrupar)
+
+LIMITAR CANTIDAD DE REGISTROS A MOSTRAR
+LIMIT -> Limite
+
+    *(select * from nombreTabla limit numeroDeRegistros)
+
+ACTUALIZAR REGISTROS EN MySQL
+
+* Actualizaremos un campo de un registro con el siguiente qury
+    (update nombreTabla set campo='new_valor' where campo='valor_id';) //usar id
+
+* Actualizamos varios campos de un registro con el siguiente query
+    (update nombreTabla set campo='valor1', campo2='valor' where campo='valor';)
+
+* Operaciones matematicas al actualizar una columna:
+    (update nombreTabla set campo=campo+5 where campo='valor';)
+
+* Remplazar valores en la actualizacion
+    (update nombreTabla set campo=replcae(campo, 'valorBuscar','valorRemplazar';))
+
+BORRAR CAMPOS
+
+* eliminar campos de una tabla "Esto borra totalmente la columna"
+    alter table nombreTabla drop column nombreCampo;
+
+BORRAR REGISTROS
+
+* Eliminaremos un registro
+    (delete from nombreTabla where campoId='1';) es recomendable utilizar el campo id de la tabla
+
+* Eliminamos varios registros que compartan un mismo valor de campo
+    (delete from nombreTabla where campoComun='valorComun')
+
+* Eliminar un registro con llave foranea y hacer un borrado en cascada
+    (delete from nombreTablaconllaveforanea where id='1';)
+
+* Borrar todos los registros de una tabla
+    (delete from nombreTabla;) el valor auto contable no se reincia y continua desde donde quedo
+
+* Borrar todos los registros de una tabla con truncate
+    (truncate table nombreTabla;) con esta linea se reincia la el valor auto_contable
+
+CONSULTAR REGISTRO EN MySQL
+
+* Ver todos los campos y todos los registros de una tabla
+    (select * from nombreTabla;) no recomendable utilizar si exiten muchos campos
+
+* Ver uno o varios campos y todos los registros de una tabla:
+    (select campo1,campo2 from nombreTabla;)
+
+* Agregarle un alias a los campos de nuestra consulta
+    (select campo1 as aliasCampo2,campo2 as aliasCampo2 from nombreTabla;) los alias los podemos usar como     acortadores iniciales para tablas
+
+* Filtrar la consulta por los valores de uno o varios campos:
+    (select * from nombreTabla where campo1='valor1' and campo2>=9;)
+
+* Agrupar registros
+    (select count(campoid) as alias from nombreTabla group by campoAgrupar;)
+
+* Obtener los valores min y max de un campo de una tabla
+    (select min(campo) as aliasMin,mas(campo) as aliasMax from nombreTabla;)
+
+* Limitar la cantidad de registros a mostrar
+    (select * from nombreTabla limit 3,2;)
+
+* Ordenar los registros de nuestra tabla de forma ascendente y descendente
+    (select * from nombreTabla order by nota desc;)
+
+* Ordenar barios registros de una tabla
+    (select * from nombreTabla order by campo1, campo2;)
+
+* para ordenar los resultados de una tabla
+    (select colum1,columna2... from nombreTabla order by columna1 asc) asc=ascendente des=descendete
+
+* Buscar por un campo o por otro o por varios:
+    (select * from nombreTabla where campo1=2 or campo2=3 or campo3=5)
+
+* Buscar resultados diferentes a la busqueda:
+    (select * from nombreTabla where campo!=10 and campo<>5;)
+
+* Buscar resultados diferentes a null:
+    (select * from nombreTabla where campo is not null;)
+
+* Buscar resultados cuyo valor este entre dos valores:
+    (select * from nombreTabla where campo between 7 and 9;)
+
+* Buscar todos los campos que esten dentro de un conjunto de valores:
+    (select * from nombreTabla where campoid in (2,3,4);)
+
+* Buscar un campo por el resultado de una operacion matematica:
+    (select * from nombreTabla where campo=5+5;)
+
+* Buscar resultados parecidos a la busqueda:
+    (select * from nmbreTabla where campo like '%valor%';) %=lugar tambien esta not like
+
+* si queremos ver solo los valores nulos de un campo;
+    ( select * from nombreTabla where is null) tambiens se puede not null
+
+* consulota entre
+    ( select * from nombreTabla where campo between 'valor' and 'valor') tambien funciona con fechas
+
+UNION DE TABLAS
+
+JOIN -> significa unir 
+
+LEFT JOIN 
+-> Traera todos los datos de la primera tabla tengan o no tengan datos en la segunda tabla.
+combina los valores de la primara tabla con los valores de la segunda tabla. 
+Siempre devolvera las filas de la primera tabla, incluso aunque no cumplan la condición. 
+(esta sentencia da prioridad a la tabla de la izquierda)
+
+    *(select * from nombreTalba#1 left join nombreTalba#2 on nombreTabla#1 . nombreCampoPK =         nombreTabla#2 . nombreCampoFK;)
+
+-> Traer todos los registros que son null de la tabla principal en la tabla #2
+
+    *(select * from nombreTabla#1 left join nombreTabla#2 on nombreTabla#1 . nombreCampoPK =
+    nombreTabla#2 . nombreCampoFK where nombreTabla#2 . nombreCampoFK is null)
+
+RIGHT JOIN 
+-> Traera todos los datos de la segunda tabla tengan o no tengan datos en la primera tabla.
+combina los valores de la primera tabla con los valores de la segunda tabla. 
+Simempre devolvera las filas de la segunda tabla, incluso aunque no cumplan la condicion.
+(esta sentencia da prioridad a la tabla de la derecha)
+
+    *(select * from nombreTalba#1 right join nombreTalba#2 on nombreTabla#1 . nombreCampoPK =         nombreTabla#2 . nombreCampoFK;)
+
+-> Traer todos los registros que son null de la tabla secundaria en la tabla #1
+
+    *(select * from nombreTabla#1 right join nombreTabla#2 on nombreTabla#1 . nombreCampoPK =
+    nombreTabla#2 . nombreCampoFK where nombreTabla#2 . nombreCampoFK is null)
+
+INNER JOIN 
+-> Traera todos los datos que acoplen,combinen entre la tabla#1 y tabla#2 dejando fuera los registros en null (datos ligados).
+
+    *(select * from nombreTalba#1 inner join nombreTalba#2 on nombreTabla#1 . nombreCampoPK =         nombreTabla#2 . nombreCampoFK;)
+
+UNION
+-> Traera todos los registros de las dos tablas unidas sin importar si los registros se encuentran null
+Para poder realizar esta union se ocupa primero de left join y despues right join.
+
+    *(select * from nombreTalba#1 left join nombreTalba#2 on nombreTabla#1 . nombreCampoPK =         nombreTabla#2 . nombreCampoFK union select * from nombreTalba#1 right join nombreTalba#2 on         nombreTabla#1 . nombreCampoPK = nombreTabla#2 . nombreCampoFK;)
+
+-> Traer todos los registros que son null de las dos tablas
+
+    *(select * from nombreTalba#1 left join nombreTalba#2 on nombreTabla#1 . nombreCampoPK =         nombreTabla#2 . nombreCampoFK where nombreTabla#2 . nombreCampoFk union select * from             nombreTalba#1 right join nombreTalba#2 on nombreTabla#1 . nombreCampoPK = nombreTabla#2 .         nombreCampoFK where nombreTabla#2 . nombreCampoFk;)
+
+FULL OUTER JOIN
+-> Traera todos los registros de las dos tablas unidas sin importar si los registros se encuentran null
+esta sentencia no funciona en todos los manejadores de base de datos.
+
+    *(select * from nombreTalba#1 full outer join nombreTalba#2 on nombreTabla#1 . nombreCampoPK =         nombreTabla#2 . nombreCampoFK;)
+
+CROSS JOIN
+Un CROSS JOIN es un tipo de JOIN (unión) que combina todas las filas 
+de una tabla con todas las filas de otra tabla. 
+También se le conoce como producto cartesiano.
+
+Es decir, si tienes:
+
+Una tabla A con 3 filas
+Una tabla B con 2 filas
+Entonces, el resultado de un CROSS JOIN entre A y B será 
+una tabla con 3 × 2 = 6 filas (cada fila de A se combina con cada fila de B).
+
+ (SELECT colores.color, tamaños.tamaño FROM colores CROSS JOIN tamaños;)
+
+CREAR VISTA EN MySQL
+
+una vista es una consulta que se presenta como una tabla (virtual) a partir 
+de un conjunto de tablas en una base de datos relacional. solo se almacena la definicion no los datos
+
+as: hace referencia a la query
+
+    ( create view nombre_vista as
+      select campo1, campo2
+      from nombreTabla
+      where campox = 'valor';) colocar el prefijo vista al nobre de de la tabla virtual
+
+* Eliminar vista
+    ( drop view nombreVista;)  -> mariaDB/MySQL
+
+* alterar datos de vista
+    Modificar aspectos especificos de la vista
+    (alter view nomVista as sel...)
+  
+    Modificar la estructura completa de una vista
+    (create or replace view nomVista as sel...)
+
+* Mostrar vista
+    (select * from nombreVista)
+
+VISTAS TEMPORALES
+Una vista temporal es una consulta que se usa como una tabla temporalmente dentro de una consulta más grande.
+
+📌 Importante:
+
+- No se almacena en la base de datos.
+- Solo existe mientras dura la consulta en la que se usa.
+- Se crea usando subconsultas o Common Table Expressions (CTE) con WITH.
+
+Un CTE (WITH) permite definir una vista temporal que se usa dentro de una consulta.
+Se pueden agregar mas subconsultas solo estableciendo (sbunconsulta1), (subconsulta2)
+
+WITH cte_ventas_mensuales AS (
+    SELECT cliente_id, SUM(total) AS total_ventas
+    FROM ventas
+    WHERE fecha >= '2024-01-01' AND fecha <= '2024-01-31'
+    GROUP BY cliente_id
+)
+SELECT clientes.nombre, ventas_mensuales.total_ventas
+FROM cte_ventas_mensuales
+JOIN clientes ON ventas_mensuales.cliente_id = clientes.id;
+
+ ¿Qué hace esto?
+
+- ventas_mensuales es una vista temporal que calcula las ventas por cliente en enero de 2024.
+- Luego, la usamos para obtener el nombre del cliente desde la tabla clientes.
+- ventas_mensuales desaparece después de ejecutar la consulta.
+
+📌 Otra forma de crear una vista temporal es con subconsultas en la cláusula FROM.
+SELECT c.nombre, v.total_ventas
+FROM clientes c
+JOIN (
+    SELECT cliente_id, SUM(total) AS total_ventas
+    FROM ventas
+    WHERE fecha >= '2024-01-01' AND fecha <= '2024-01-31'
+    GROUP BY cliente_id
+) AS v
+ON c.id = v.cliente_id;
+
+- Aquí, la subconsulta actúa como una vista temporal llamada v.
+
+# CREATE PROCEDURE / Procedimiento almacenado
+
+Porcion de codio almacenada y reutilizable.
+📌 Nota: DELIMITER // se usa porque los procedimientos almacenados 
+pueden contener varios puntos y comas (;), y // indica el final del procedimiento.
+
+    delimiter //
+    create procedure nombreProcedimiento(
+        in varEntrada tipoDato, -> declaracion de variable como parametro
+        in varEntrada tipoDato, 
+        out varSalida tipoDato
+    )
+    begin
+        -- Delclaracion de variable dentro del procedimiento
+        declare nomVar tipoDato;
+    
+        set nomVar = "informacion" -> SET se usa para asignar valores directamente a una variable.
+        select ... into -> INTO se usa para asignar el resultado de una consulta a una variable.
+    
+        -- Manejo de errores
+        DECLARE tipo_de_handler HANDLER FOR condición SQL
+        BEGIN
+            -- Acciones a ejecutar cuando ocurra un error
+        END;
+    
+        select * from nombreTabla into varSalida; -> into varSalida almacena un dato especifico
+    
+    end //
+    delimiter ;
+
+EXPECIONES EN PROCEDIMIENTOS
+
+- tipo_de_handler: Puede ser CONTINUE (seguir ejecutando) o EXIT (detener el procedimiento).
+
+- condición SQL: Especifica el tipo de error a capturar (SQLEXCEPTION, SQLWARNING, NOT FOUND).
+
+- acción: Lo que hará cuando ocurra el error (por ejemplo, asignar un valor a una variable o mostrar un mensaje).
+* Para llamar un procedimiento almacenado solo con entrada
+    (call nombreProcedimiento(variable de ingreso))
+
+* Llamar procedimiento almacenado con varable de salida
+  
+  * parte #1(call nombreProcedimiento('datoAbuscar',creamos una variable para almacenar el dato de salida);)
+    parte #2 (select @variable;)
+
+    * parte #1(call numero (2,@numero);)
+    parte #2 (select @numero;)
+
+Si queremo realizar un busqueda de una palabra si importar su ubicacion utilizamos
+    *(concat('%',variable de ingreso,'%');)
+
+FUNCIONES EN MySQL
+-> Una funcion es una rutina creada para tomar unos parametros, procesarolos y retornar en una salida
+-> Diferencia que tiene una funcion sobre un procedimiento
+
+1. solamente pueden tener parametros de entrada 'in' y no parametros de salida 'out'.
+2. Las fuciones deben retornar en un valor con algún tipo de dato definido. Los procedimientos
+   pueden devolver uno o más valores a través de parámetros o puede no devolver ninguno. 
+3. Las funciones pueden usarse en el contexto de una sentencia sql.
+4. solo retorna un valor individual, no un conjunto de registros.
+
+las variables dentro de una funcion se declaran con: declare nombreVariable tipoDato
+
+    delimiter //
+    create function nombre_funcion (variable tipo_variable) returns tipo
+    begin
+        -- INICIO DE ACCIONES
+        declare numero int;
+        select count (*) into numero from tabla;
+        return numero;
+        -- FIN DE ACCIONES
+    end //
+    delimiter ;
+
+Llamar funcion
+    *(select nombreFuncion(parametros);)
+
+TRIGGER
+-> Es una funcion que se dispara cuando hay un evento en un cierto momento
+-> El momento es (after'despues' o before'antes')
+-> El evento es la accion (insert, update, delete otros)
+
+    delimiter //
+    create trigger nombre_gatillo momento evento on tabla_que_resibe_evento
+    for each row
+        insert into cualqier_tabla(campo) value ('valor');
+    end
+    delimiter ;
+
+# CASE WHEN THEN END
+
+En SQL se usa para evaluar condiciones y devolver valores 
+basados en esas condiciones. Es como una estructura if-else en otros lenguajes de programación
+
+Sintaxis:
+
+SELECT 
+    CASE 
+        WHEN condición1 THEN resultado1
+        WHEN condición2 THEN resultado2
+        ELSE resultado_por_defecto
+    END AS nombre_columna
+FROM tabla;
+
+- CASE: Indica el inicio de la estructura de decisión.
+- WHEN: Especifica una condición a evaluar.
+- THEN: Define qué resultado devolver si la condición es verdadera.
+- ELSE (opcional): Especifica un valor por defecto si ninguna condición se cumple.
+- END: Finaliza la estructura CASE.
+- AS nombre_columna: Opcional, le da un nombre a la columna en la consulta.
+
+Ejemplo:
+
+SELECT nombre, precio,
+    CASE 
+        WHEN precio < 50 THEN 'Barato'
+        WHEN precio BETWEEN 50 AND 100 THEN 'Normal'
+        ELSE 'Caro'
+    END AS categoria
+FROM productos;
+
+# CREATE INDEX
+
+Un índice en SQL es como un "atajo" que ayuda a la base de datos a encontrar datos más rápido. 
+CREATE INDEX se usa para crear estos atajos y mejorar el rendimiento de las consultas.
+
+Imagina que tienes un libro sin índice. Si quieres encontrar un tema, tendrías que leer todas las páginas una por una (búsqueda lenta).
+Pero si el libro tiene un índice al inicio, puedes ir directamente a la página correcta (búsqueda rápida).
+
+Lo mismo ocurre con las bases de datos:
+
+- Sin índice: La base de datos busca fila por fila (búsqueda secuencial).
+
+- Con índice: Encuentra los datos más rápido, porque usa un mapa ordenado de valores.
+  
+    (CREATE INDEX idx_nombre_indice ON nombre_tabla (columna))
+
+La base de datos usará el índice idx_nombre en lugar de revisar cada fila manualmente.
+
+//PosgreSQL
+PostgreSQL (también llamado Postgres) es un sistema de gestión de 
+bases de datos relacional (RDBMS) de código abierto, conocido 
+por su potencia, flexibilidad y fiabilidad.
+
+* psql --username=<nomUsuario> --dbname=<nomBaseDatos>
+    Permite conectar a una base de datos
+
+* \l
+    Lista todas las bases de datos
+
+* \c <nomDB>
+    Permite utilizar/seleccionar una base de datos
+
+* CREATE DATABASE <nomDB>
+    Permite crear una base de datos
+
+📍
+
+* CREATE TABLE <nomTabla();>
+    Permite crear una tabla
+
+* \d
+    permite ver las tablas existentes de la base de datos
+    actualmente seleccionada
+
+* \d <nomTabla>
+    permite ver los detalles de una tabla, (su construcción).
+
+* ALTER TABLE <nomTabla> ADD COLUMN <nomCampo> <tipoDato>
+    permite alterar una tabla ya creada y agregar un nuevo campo
+
+* ALTER TABLE <nomTabla> DROP COLUMN <nomCampo>
+    Permite eliminar un campo de una tabla
+
+* ALTER TABLE <nomTabla> DROP CONSTRAINT <nomConstrint>
+    Permite eliminar una llave primaria
+
+* ALTER TABLE <nomTabla> RENAME COLUMN <nomCampo> TO <nuevoNomCampo>
+    Permite renombrar un campo de tabla
+
+* ALTER TABLE ADD PRIMARY KEY (nomCampo)
+    permite establecer/crea llave primaria
+
+* ALTER TABLE <nomTabla> ADD PRIMARY KEY (campo1, campo2)
+    Este crea una llave primaria compuesta
+
+* ALTER TABLE <nombreTabaConFK> add column <nomCampoFK> references <nombreTablaPadre>(campoDeReferencia)
+    Este comando crea un campo de llave foranea y lo referencia,
+    es decir crea una llave foranea
+
+* ALTER TABLE <nomTabla> add foreign key(<nomCampoTablaBaseID>) references <nomCampoTablaReferencia(nombre_campo_id)>;
+    Este comando permite agregar un llave foranea sin crear un campo,
+    metodo utilizado cuando los dos campos ya estan creados;
+
+* ALTER TABLE <nomTabla> add unique (<nomFKTablaBas>)
+    Esta sentencia se encarga de crear un campo unico.
+
+* ALTER TABLE <nomTabla> ALTER COLUMN <nomColumna> SET RESTRICCION
+    Este sentencia permite agregar caracteristicas/restricciones a 
+    un campo existente.
+
+* ALTER TABLE <nomTabla> ADD CONSTRAINT <unique_campo_id> UNIQUE (<nomCampo>)
+    Este campo permite agregar una restriccion a un campo, cuando este ya esta creado
+
+* INSERT INTO <nomTabla>(campo...) VALUES(valor)
+    Permite asignar/insertar valores dentro de una tabla
+
+* SELECT <campo> FROM <nomTabla>
+    Permite extraer los datos seleccionados en campos/columnas
+
+* DELETE FROM <nomTabla> WHERE <nomCampo=valor>
+    Permite eliminar un dato especifico de una tabla
+
+* DROP TABLE <nomTabla>
+    permite eliminar una tabla
+
+* ALTER DATABASE <nomDB> RENAME TO <nuevoNomDB>
+    Permite renombrar una base de datos
+
+* UPDATE <nomTabla> SET <nomCampoActualizar=nuevoValor> WHERE <condicion>
+    Actualizar el valor de un dato en una fila
+
+* UPDATE <nomTabla> SET <nomCampoActualizar=nuevoValor> WHERE <condition> in (campo, campo)
+    permite la actualizacion multiple;
+
+* IMPORTANTE!!!!!
+  Consultar sobre FULL JOIN
+
+--- TIPO DATOS ---
+
+* serial
+    convierte el campo en tipo int, not null, auto incremental
+* numeric (n,decimales)
+    Este tipo de dato es para decimales
+* date
+    Tipo de dato fecha formato defecto('YYYY-MM-DD')
+
+--- ATRIBUTOS DE CAMPO ---
+
+* not null
+    Indica al campo que este no puede estar vacio
+
+--- CLAUSULAS ---
+
+* ORDER BY <nomColumna>
+    Permite ordenar los datos de una consulta
+    desc -> de mayor a menor
+    asc -> de menor a mayor
+
+* IN
+    se utiliza para especificar múltiples valores en una condición de     filtro. Permite verificar si un valor coincide con cualquiera de     los valores especificados en una lista.
+
+exportar
+pg_dump -cC --inserts -U freecodecamp universe > universe.sql
+importar
+psql -U postgres < universe.sql
+
+description, has_life, is_spherical, age_in_millions_of_years, planet_types, galaxy_types, distance_from_earth.
