@@ -46,5 +46,3 @@ Se recomienda instalar y ejecutar pandas desde un entorno virtual, por ejemplo, 
    ```
    
    Documentacion [tabulate]([astanin/python-tabulate: Datos tabulares de impresión bonita en Python, una biblioteca y una utilidad de línea de comandos. Repositorio migrado desde bitbucket.org/astanin/python-tabulate.](https://github.com/astanin/python-tabulate))
-
-
