@@ -4,9 +4,9 @@ Pandas es una **herramienta** (librería) de Python que sirve para trabajar con 
 
 Imagina que tienes una hoja de cálculo de Excel con muchas filas y columnas. Pandas te permite hacer lo mismo en Python: organizar, modificar, analizar y guardar datos.
 
-Documentacion [pandas]([pandas documentation — pandas 2.2.3 documentation](https://pandas.pydata.org/docs/)).
+Documentación [pandas]([pandas documentation — pandas 2.2.3 documentation](https://pandas.pydata.org/docs/)).
 
-:fire: Intstalación [giuia]([Installation — pandas 2.2.3 documentation](https://pandas.pydata.org/docs/getting_started/install.html))
+:fire: Instalación [giuia]([Installation — pandas 2.2.3 documentation](https://pandas.pydata.org/docs/getting_started/install.html))
 
 Se recomienda instalar y ejecutar pandas desde un entorno virtual, por ejemplo, usando el venv o virtualenv.
 

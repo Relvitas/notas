@@ -255,5 +255,5 @@ Herramienta estándar de Python (desde Python 3.3)
    
    ```bash
    rm -rf mi_env  # En Linux/macOS
-   rmdir /s /q mi_env  # En Windows
+   rmdir /s /q mi_env  # En Windowshhhhhh
    ```
