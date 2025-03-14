@@ -424,8 +424,6 @@ Obtener todos los encabezados de respuesta del servidor
 response_headers = r.headers
 ```
 
-
-
 :fire: **response.cookies**
 
 Las cookies que se envían o reciben en una solicitud HTTP. Puedes usarlo para:
@@ -578,7 +576,7 @@ else:
 ## QUE HACE 
 '''
     Crea una sesión con requests.Session().
-    
+
     Configura la autenticación básica 
     usando session.auth con un nombre de usuario y una contraseña.
 
