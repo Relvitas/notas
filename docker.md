@@ -44,6 +44,8 @@ Es una virtual machine
 
 * Corre nativo en windows wsl2 (windows subsytem for linux)
 
+---
+
 ## INSTALACION
 
 https://docs.docker.com/desktop/setup/install/linux/ubuntu/, no hay necesidad de instalar la interfaz, solo con el tutorial de [docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
@@ -52,9 +54,13 @@ https://docs.docker.com/desktop/setup/install/linux/ubuntu/, no hay necesidad de
 
 Conocer la version de docker que se tiene instalada
 
+
+
 :round_pushpin: **sudo systemctl status docker**
 
 Este comando nos permite validar si el servicio de docker se esta ejecutando correctamente.
+
+
 
 :round_pushpin: **sudo systemctl start docker**
 
@@ -72,6 +78,8 @@ Habilitar inicio automatico al momento de arrancar el sistema.
 
 Si no queremos que se inicie automaticamente al iniciar el sistema
 
+
+
 :round_pushpin: **sudo systemctl start docker.socket**
 
 Inciar el servicion de docker.socket.
@@ -87,6 +95,8 @@ Si no queremos que se inicie automaticamente al inciar el sistema.
 :round_pushpin: **sudo systemctl enable docker docker.socket**
 
 Para que se incie automaticamente al inciar la maquina.
+
+
 
 :round_pushpin: **docker login**
 
@@ -112,11 +122,45 @@ Agregar nuestro usuario al grupo de docker, para no ejecutar sudo con cada coman
 
 Despues de agregar un usuario a un grupo, necesitamos cerrar sesion y volver a iniciarla para que los cambios surtan efecto. o simplemente ejecutar el comando dado.
 
+---
+
 ## Almacen de contenedores
 
 https://hub.docker.com/
 
+---
+
 ## COMANDOS
+
+:fire: **Nombre de archivo**
+
+El archivo de compose se coloca en la raiz de nuestro proyecto con el nombre de "compose.yaml" o "compose.yml". Para versiones antiguas, este suele ser llamado "docker-compose.yaml" o "docker-compose.yml".
+
+
+
+:fire: **docker compose up**
+
+Este comando nos permite iniciar todos los servicios especificados en el archivo compose.
+
+
+
+:fire: **docker compose down**
+
+Este comando se encarga de dar de baja todos los servicios especificados en el archivo compose.
+
+
+
+:fire: **docker compose logs**
+
+Este comando nos permite monitorear la salida de nuestro contenedores y depuerar problemas.
+
+
+
+:fire: **docker compose ps**
+
+1. Listar todos los servicios y su estado actual.
+
+
 
 :fire: Ver todas las imagenes descargadas
 
