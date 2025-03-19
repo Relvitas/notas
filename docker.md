@@ -132,36 +132,6 @@ https://hub.docker.com/
 
 ## COMANDOS
 
-:fire: **Nombre de archivo**
-
-El archivo de compose se coloca en la raiz de nuestro proyecto con el nombre de "compose.yaml" o "compose.yml". Para versiones antiguas, este suele ser llamado "docker-compose.yaml" o "docker-compose.yml".
-
-
-
-:fire: **docker compose up**
-
-Este comando nos permite iniciar todos los servicios especificados en el archivo compose.
-
-
-
-:fire: **docker compose down**
-
-Este comando se encarga de dar de baja todos los servicios especificados en el archivo compose.
-
-
-
-:fire: **docker compose logs**
-
-Este comando nos permite monitorear la salida de nuestro contenedores y depuerar problemas.
-
-
-
-:fire: **docker compose ps**
-
-1. Listar todos los servicios y su estado actual.
-
-
-
 :fire: Ver todas las imagenes descargadas
 
 ```python
@@ -570,3 +540,39 @@ ARCHIVO DE DESARROLLO
 EJecutamos el comando para inciar
 
 docker compose -f docker-compose-dev.yml up
+
+
+
+## Archivo compose
+
+---
+
+:fire: **Nombre de archivo**
+
+El archivo de compose se coloca en la raiz de nuestro proyecto con el nombre de "compose.yaml" o "compose.yml". Para versiones antiguas, este suele ser llamado "docker-compose.yaml" o "docker-compose.yml".
+
+---
+
+:fire: **docker compose up**
+
+Este comando nos permite iniciar todos los servicios especificados en el archivo compose.
+
+---
+
+:fire: **docker compose down**
+
+Este comando se encarga de dar de baja todos los servicios especificados en el archivo compose.
+
+---
+
+:fire: **docker compose logs**
+
+Este comando nos permite monitorear la salida de nuestro contenedores y depuerar problemas.
+
+---
+
+:fire: **docker compose ps**
+
+Listar todos los servicios y su estado actual.
+
+---
