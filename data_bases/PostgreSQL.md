@@ -232,8 +232,6 @@ CREATE TABLE reservas (
 
 ---
 
-
-
 🔥 Crear Roles
 
 ```sql
@@ -436,6 +434,16 @@ verbo | nombre_columnas | clausula | nombre_tabla | palabra_resevada | expresion
 ```plsql
 SELECT version();
 ```
+
+---
+
+:fire: **sudo -i -u postgres**
+
+Con este comando accederemos a postgres en usuarios ubuntu dado a que el metodo de autenticacion configurado en pg_hba.conf puede ser md5 o peer. Lo que requerie una contraseña o que el usuario coicida con el de linux.
+
+:fire: **psql**
+
+Ejecutamos a la ves este comando para acceder a postgresql.
 
 ---
 

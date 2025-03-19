@@ -593,9 +593,9 @@ EXPECIONES EN PROCEDIMIENTOS
   
   * parte #1(call nombreProcedimiento('datoAbuscar',creamos una variable para almacenar el dato de salida);)
     parte #2 (select @variable;)
-
+    
     * parte #1(call numero (2,@numero);)
-    parte #2 (select @numero;)
+      parte #2 (select @numero;)
 
 Si queremo realizar un busqueda de una palabra si importar su ubicacion utilizamos
     *(concat('%',variable de ingreso,'%');)

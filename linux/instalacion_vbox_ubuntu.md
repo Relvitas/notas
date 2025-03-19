@@ -2,8 +2,9 @@
 
 Documentacion de [virtual_box](https://www.virtualbox.org/wiki/Linux_Downloads)
 
-1. Agregar el reposdddd**Línea de repositorio**:
-   Debes agregddr una línea a tu archivo `/etc/apt/sources.list`, que le indica a **APT** (el gestor de paquetes de Debian/Ubuntu) de dónde obtener los paquetes de VirtualBox.
+1. Agregar el repositorio
+   **Línea de repositorio**:
+   Debes agregar una línea a tu archivo `/etc/apt/sources.list`, que le indica a **APT** (el gestor de paquetes de Debian/Ubuntu) de dónde obtener los paquetes de VirtualBox.
    
    ```python
    '''
@@ -14,10 +15,10 @@ Documentacion de [virtual_box](https://www.virtualbox.org/wiki/Linux_Downloads)
        tenemos instalada
    
        Para obtener este nombre utilizamos el comando
-       > lsb_releace -a
+       > lsb_release -a
    
        En donde Codename: nombre -> sera el nombre de la distro
-   '''ddd
+   '''
    deb [arch=amd64 signed-by=/usr/share/keyrings/oracle-virtualbox-2016.gpg] https://download.virtualbox.org/virtualbox/debian <mydist> contrib
    ```
    

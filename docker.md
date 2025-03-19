@@ -46,7 +46,71 @@ Es una virtual machine
 
 ## INSTALACION
 
-https://docs.docker.com/desktop/setup/install/linux/ubuntu/
+https://docs.docker.com/desktop/setup/install/linux/ubuntu/, no hay necesidad de instalar la interfaz, solo con el tutorial de [docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
+
+:round_pushpin: **docker --version**
+
+Conocer la version de docker que se tiene instalada
+
+:round_pushpin: **sudo systemctl status docker**
+
+Este comando nos permite validar si el servicio de docker se esta ejecutando correctamente.
+
+:round_pushpin: **sudo systemctl start docker**
+
+Iniciar el servicio de docker.
+
+:round_pushpin: **sudo systemctl stop docker**
+
+Detiene el servicio de docker
+
+:round_pushpin: **sudo systemctl enable docker**
+
+Habilitar inicio automatico al momento de arrancar el sistema.
+
+:round_pushpin: **sudo systemctl disable docker docker**
+
+Si no queremos que se inicie automaticamente al iniciar el sistema
+
+:round_pushpin: **sudo systemctl start docker.socket**
+
+Inciar el servicion de docker.socket.
+
+:round_pushpin: **sudo systemctl stop docker docker.socket**
+
+Detener el servicio de socket de docker, para que no eschuche conexiones.
+
+:round_pushpin: **sudo systemctl disable docker docker.socket**
+
+Si no queremos que se inicie automaticamente al inciar el sistema.
+
+:round_pushpin: **sudo systemctl enable docker docker.socket**
+
+Para que se incie automaticamente al inciar la maquina.
+
+:round_pushpin: **docker login**
+
+Iniciar sesion en docker hub mediante codigo, en la terminal al dar enter se nos abrira el navegador donde tengamos iniciada la sesion docker y solo daremos en confirmar, de esta forma se nos dara el acceso a docker.
+
+:round_pushpin: **docker login -u <username>**
+
+De esta forma iniciaremos sesion desde la terminal, pasar password. o generar un personal acces tocker para iniciar sesion.
+
+:round_pushpin: **cat ~/.docker/config.json**
+
+Validar si se ha inicia sesion de manera efectiva, si al ejecutar el comando vemos un parametro auth con un token, significa que la sesion esta activa.
+
+:round_pushpin: **docker logout**
+
+Este comando nos permite cerrar sesion de docker hub.
+
+:round_pushpin: **sudo usermod -aG docker $USER**
+
+Agregar nuestro usuario al grupo de docker, para no ejecutar sudo con cada comando de docker.
+
+:round_pushpin: **newgrp docker**
+
+Despues de agregar un usuario a un grupo, necesitamos cerrar sesion y volver a iniciarla para que los cambios surtan efecto. o simplemente ejecutar el comando dado.
 
 ## Almacen de contenedores
 
@@ -375,7 +439,7 @@ docker create -p<puerto_local>:<puerto_docker>
           environment:
               VARIABLE_ENTORNO=valor
               VARIABLE_ENTORNO=valor
-          
+  
           # Estos volumes son declarados a la parte de abajo
           volumes:
               # consultar con el servicio si es necesario
@@ -393,8 +457,6 @@ docker create -p<puerto_local>:<puerto_docker>
   
   `docker compose down`
 
-
-
 ## VOLUMES
 
 Tipos:
@@ -406,8 +468,6 @@ Tipos:
 * De anfitrion/host: Decidimos donde y que carpeta montarlo
 
 * Nombrado: es como el anonimo, su principal diferencia es que podemo referenciar este volumen nombrado cuando creemos otro contenedor.
-  
-  
 
 ARCHIVO DE DESARROLLO
 
@@ -436,7 +496,7 @@ ARCHIVO DE DESARROLLO
                # indicar que construya la imagen en base al
                # archivo Dockerfile.dev
                dockerfile: Dockerfile.dev
-               
+   
            ports:
                - "<puerto_anfitrion>:<puerto_contenedor>"
            # Nombre del contenedor que queremos mapear
@@ -453,7 +513,7 @@ ARCHIVO DE DESARROLLO
            environment:
                VARIABLE_ENTORNO=valor
                VARIABLE_ENTORNO=valor
-           
+   
            # Estos volumes son declarados a la parte de abajo
            volumes:
                # consultar con el servicio si es necesario
