@@ -176,11 +176,20 @@ pyenv-virtualenv es un plugin de pyenv que proporciona características para ges
       pyenv virtualenv <versión-python> <nombre-del-entorno>
   '''
   pyenv virtualenv 2.7.10 my-virtual-env-2.7.10
+  
+  # Crear con la version actual.
+  pyenv virtualenv $(pyenv version-name) mi_entorno
   ```
 
 * Ver entornos creados
   
   `pyenv virtualenvs`
+
+* Activar entorno virtual automaticamente
+  
+  `pyenv local mi-entorno`
+  
+  Este comando crea el entorno en la carpeta, para que cuando accedamos a esta, se active automaticamente. ".python-version" 
 
 * Activar un entorno
   

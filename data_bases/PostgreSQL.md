@@ -2,6 +2,18 @@
 
 **PostgreSQL** (también llamado **Postgres**) es un **sistema de gestión de bases de datos relacional (RDBMS)** de código abierto, conocido por su **potencia, flexibilidad y fiabilidad**.
 
+
+
+---
+
+## Instalacion
+
+1. sudo apt install postgresql
+
+2. Seguir la documentacion si requerimos la ultima version: [PostgreSQL: Linux downloads (Ubuntu)](https://www.postgresql.org/download/linux/ubuntu/)
+
+
+
 ---
 
 ## Archivos de configuración
@@ -444,6 +456,14 @@ Con este comando accederemos a postgres en usuarios ubuntu dado a que el metodo 
 :fire: **psql**
 
 Ejecutamos a la ves este comando para acceder a postgresql.
+
+
+
+:fire: **\password postgres**
+
+Con este comando establecemos la contraseña
+
+
 
 ---
 

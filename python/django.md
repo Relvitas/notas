@@ -232,54 +232,237 @@ Importante es para un (despliegue en producción), si solo es para pruebas utili
    LastRx → Indica cuántos segundos han pasado desde la última respuesta.
    Last sample → Muestra el desfase de tiempo con respecto a tu sistema.
    '''
-   
-   
    ```
 
+```
 9. **mod_wsgi-express**
+
+Es una herramienta para ejecutar aplicaciones Python WSGI (como Django o Flask) usando Apache y mod_wsgi de manera sencilla.
+
+Para que sirve:
+
+* Proporciona una forma rápida de probar aplicaciones WSGI sin configurar Apache manual mente.
+
+* Facilita el despliegue local sin modificar archivos de configuracion complejo
+
+:fire: Instalacion
+
+Recuerda ejecutar este dentro de un virtual
+
+`pip install mod_wsgi`
+
+* Iniciar el servidor con una app WSGI
+
+  Si tenemos un archivo app.py con una aplicacion WSGI, podemos ejecutarlo asi:
+
+  `mod_wsgi-express start-server app.py`
+
+  Esto inicia un servidor con Apache y mod_wsgi, listo para probar la app
+
+* Especificar un puerto
+
+  Por defecto usa el puerto 8000, pero podemos cambiarlo
+
+  `mod_wsgi-express start-server app.py --port 8080`
+
+* Ver logs en tiempo real
+
+  Si necesitamos depurar
+
+  `mod_wsgi-express start-server app.py --log-to-terminal`
+
+* Generar configuracion para apache
+
+  Esto imprime la configuracion que podemos agregar al archivo de configracion de apache, por si deseamos integrar la aplicacion con el servidor de apache.
+
+  `mod_wsgi-express module-config`
+
+* Validar si esta correctamente instalado
+
+  `mod_wsgi-express version`
+```
+
+MTV
+
+Template/vista
+
+model/model
+
+view/controller
+
+---
+
+:fire: **Crear un proyecto**
+
+1. `mkdir <nombre_proyecto>` Este comando creara la carpeta que contendra nuestro proyecto.
+
+2. `django-amdin startproject <nombre_proyecto> <nombre_carpeta_proyecto>` Este comando crea el proyecto dentro de la carpeta creada en el paso anterior.
+
+:fire: Construir nuevos cambios
+
+`python manage.py makemigrations`
+
+:fire: `python manage.py runserver` 
+
+Este comando ejecuta el servidor de desarrollo integrado para pruebas.
+
+1. `python manage.py migrate` Este comando lo debemos ejecutar si tenemos algun error con migraciones pendientes, No olvidemos primero detener el servidor y proceder con la ejecucion del comando.
+
+:fire: `python manage.py startapp <nom_modulo>` 
+
+Este comando sirve para crear un modulo de la pagina web.
+
+---
+
+## CREAR VISTAS
+
+```python
+'''
+    1. En el modulo de la app generado, tenemos un archivo
+        de nombre views este lo podemos ver como el controlador
+        en donde gestionaresmos las vistas, se definen funciones
+        que llevaran el nombre de la vista.
+
+        importante en la seccion views agregar la clase
+        HttpResponse.
+
+        from django.http import HttpRespose
+
+        def inicio(request):
+            return HttpRespose(contenido_retorno)
+
+    2. Una ves creada la vista debemos asignar esta vista a una
+        URL, es decir cuando el usuario busque cierta url se
+        cargara lo que este asociado en la funcion de la vista
+        podemos ver esto como un indexer.
+
+        from django.urls import path
+        from . import views # Acá importamos todas las vistas,
+                            # el . señala que esta en la
+                            # carpeta actual.
+
+        urlpatterns = [
+            path("nombre_path/", views.nom_vista, name="nombre_url")
+        ]
+
+        # nombre_path -> Sera el indentificativo cuando el usuario
+                realice la buqueda a la vista, es decir inicio/
+                cuando el usuario haga la busqueda asi:
+                pagina: .com/inicio lo llevara a la vista
+                relacionada.
+
+        # views.nom_vista -> el nom_vista sera el nombre
+            que establecimos en la funcion que contiene la
+            vista en views
+
+        # nombre_url -> sera el nombre que identifica la URL.
+
+    3. Agregaremos las urls de la app al proyecto, esto
+        lo aremos en donde se creo el primer proyecto en el
+        modulo urls.py debemos importar el include.
+
+        from django.urls import path, include
+
+        urlpatterns = [
+            path('', include("modulo.urls")),
+        ]
+
+        # modulo.urls -> este señala al modulo de la app urls
+            ejemplo: app.urls
+
+        # '' -> sera el identificador de la url inicial, este
+            puede cambiar si tenemos mas apps. ejemplo
+            blos/ la url seria .com/blog pero con la inical
+            seria .com
+'''
+```
+
+## PASAR PARAMETROS A UNA VISTA
+
+```python
+'''
+    1. configuracion controlador/view del app
+'''
+def nom_vista(request, param):
+    # operaciones con la variable param
+
+'''
+    2. configuracion de la urls del app.
+
+    Si necesitamos convertir los datos a enteros utilizamos
+    <int:param> # convierte a entero
+
+    urlpatterns = [
+        path('user/<int:id>/', views.nom_vista, name="nom_url")
+    ]
+
+    # Si necesitamos pasar mas de un parametro esto se hace:
+    utrpatterns = [
+        path('user/<int:edad>/<int:id>/', views.nom, name="nom"),
+    ]
+
+    Y no olvidar agregar esto a las funciones de las vista.
+    def nom_vista(request, param1, param2):
+        # operaciones con parametros
+        return HttpResponse()
+'''
+```
+
+## PLANTILLAS
+
+Las plantillas son cadenas de texto (HTML casi siempre), siven para separar la parte lógica (dato) de la parte visual (presentacion) de un documento web.
+
+1. Creacion del objeto Template `plt=Template(doc_externo.read())`
+
+2. Creación de contexto `ctx=Context()`
    
-   Es una herramienta para ejecutar aplicaciones Python WSGI (como Django o Flask) usando Apache y mod_wsgi de manera sencilla.
+   Datos adicionales para el template (variables, funciones etc).
+
+3. Renderizado del objeto template `documento=plt.render(ctx)`
+
+## DATABASE / MODEL (psql)
+
+1. `pip install --upgrade pip` Este comando actualiza pip a su ultima version
+
+2. `pip install "psycopg[binary]"` Instala la biblioteca junto con las dependencias binarias precompiladas para facilitar la instalación sin complicaciones adicionales.
+
+3. Configurar postgresql en django (**settings.py**) este es el archivo se encuenta en la creacion del proyecto con django.
    
-   Para que sirve:
+   1. Abrir settings.py, buscar la seccion DATABASES y cambiar lo que contiene esta, que por defecto biene configurada para SQLite.
    
-   * Proporciona una forma rápida de probar aplicaciones WSGI sin configurar Apache manual mente.
+   ```python
+   DATABASES = {
+       'default': {
+           'ENGINE': 'django.db.backends.postgresql',
+           'NAME': 'nombre_de_tu_base_de_datos',  # El nombre de tu base de datos
+           'USER': 'nombre_de_usuario',  # Tu nombre de usuario de PostgreSQL
+           'PASSWORD': 'tu_contraseña',  # Tu contraseña de PostgreSQL
+           'HOST': 'localhost',  # O la IP del servidor de PostgreSQL si no está en el mismo equipo
+           'PORT': '5432',  # Puerto por defecto de PostgreSQL
+       }
+   }
+   ```
    
-   * Facilita el despliegue local sin modificar archivos de configuracion complejo
+   Otra forma de configurar esta, es con los archivos de configuracion de apache, seguir la documentacion de [django]([Databases | Django documentation | Django](https://docs.djangoproject.com/en/5.1/ref/databases/#postgresql-notes)).
+
+4. `python manage.py makemigrations` Este comando construye las nuevas migraciones.
+
+5. python manage.py migrate
+
+**GENERAR LAS CONSULTAS DE LA CONSTRUCION DE DB**
+
+Una vez, tengamos el models OK, debemos generar las querys, esto se realiza con el comando, `python manage.py sqlmigrate <nombre_aplicacion> <numero_migracion>` el numero de migracion se obtiene al construir las migraciones de la app ej: `auxiliares\migrations\0001_initial.py` -> 0001 es el numero de migracion.
+
+## MANEJAR ARCHIVOS
+
+1. Configurar `MEDIA_URL` Y `MEDIA_ROOT`
    
-   :fire: Instalacion
-   
-   Recuerda ejecutar este dentro de un virtual
-   
-   `pip install mod_wsgi`
-   
-   * Iniciar el servidor con una app WSGI
-     
-     Si tenemos un archivo app.py con una aplicacion WSGI, podemos ejecutarlo asi:
-     
-     `mod_wsgi-express start-server app.py`
-     
-     Esto inicia un servidor con Apache y mod_wsgi, listo para probar la app
-   
-   * Especificar un puerto
-     
-     Por defecto usa el puerto 8000, pero podemos cambiarlo
-     
-     `mod_wsgi-express start-server app.py --port 8080`
-   
-   * Ver logs en tiempo real
-     
-     Si necesitamos depurar
-     
-     `mod_wsgi-express start-server app.py --log-to-terminal`
-   
-   * Generar configuracion para apache
-     
-     Esto imprime la configuracion que podemos agregar al archivo de configracion de apache, por si deseamos integrar la aplicacion con el servidor de apache.
-     
-     `mod_wsgi-express module-config`
-   
-   * Validar si esta correctamente instalado
-     
-     `mod_wsgi-express version`
-   
-   
+   ```python
+   '''
+       Agregamos estas configuraciones en la raiz del proyecto
+       settings.py
+   '''
+   # Indicamos a dnjango a donde subir archivos y donde guardarlos
+   MEDIA_URL = '/media/' # URL publica para acceder a los archivos
+   MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Ruta en el servidor donde se guardan los archivos
+   ```

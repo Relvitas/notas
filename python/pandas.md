@@ -117,8 +117,6 @@ DataFrame.dropna(
 df_limpio = df.dropna(subset=['A', 'B'])
 ```
 
-
-
 :fire: apply()
 
 Se utiliza para aplicar una función a lo largo de un eje de un DataFrame(filas o columnas).
@@ -163,11 +161,7 @@ def actualizar_fila(row):
 df = df.apply(actualizar_fila, axis=1)
 ```
 
-
-
 ---
-
-
 
 ## CONSTRUCCIONES
 

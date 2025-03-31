@@ -54,13 +54,9 @@ https://docs.docker.com/desktop/setup/install/linux/ubuntu/, no hay necesidad de
 
 Conocer la version de docker que se tiene instalada
 
-
-
 :round_pushpin: **sudo systemctl status docker**
 
 Este comando nos permite validar si el servicio de docker se esta ejecutando correctamente.
-
-
 
 :round_pushpin: **sudo systemctl start docker**
 
@@ -78,8 +74,6 @@ Habilitar inicio automatico al momento de arrancar el sistema.
 
 Si no queremos que se inicie automaticamente al iniciar el sistema
 
-
-
 :round_pushpin: **sudo systemctl start docker.socket**
 
 Inciar el servicion de docker.socket.
@@ -95,8 +89,6 @@ Si no queremos que se inicie automaticamente al inciar el sistema.
 :round_pushpin: **sudo systemctl enable docker docker.socket**
 
 Para que se incie automaticamente al inciar la maquina.
-
-
 
 :round_pushpin: **docker login**
 
@@ -540,8 +532,6 @@ ARCHIVO DE DESARROLLO
 EJecutamos el comando para inciar
 
 docker compose -f docker-compose-dev.yml up
-
-
 
 ## Archivo compose
 
