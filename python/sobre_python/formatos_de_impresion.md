@@ -77,3 +77,30 @@ Puedes cambiar la separación entre valores con `sep`.
 print("Python", "es", "genial", sep="-")
 //> Python-es-genial
 ```
+
+:fire: r'texto'
+
+Si queremos que los signos (\\) no se tomen como caracteres especiales debemos anteponer la letra `r''` de esta forma no se tomaran como caracter especial.
+
+```python
+print(r'C:\home\user')
+```
+
+:fire: *N
+
+Permite repertir una cadena n cantidad de veces
+
+```python
+print('Hola Mundo \n'*3)
+```
+
+:fire: ''
+
+Si la cadena esta muy larga esta se puede dividir y al momento de impresion
+
+aparecera en una sola linea. ya que estas se solapan.
+
+```python
+text = ('Put several strings within parentheses '
+        'to have them joined together.')
+```
