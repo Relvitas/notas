@@ -257,7 +257,7 @@ sintaxis:
 
     tamaño -> opcional
         xs, sm, md, lg, xl, xxl
-        
+
     auto -> palabra clave, obligatorio
 
 <div class="container">
