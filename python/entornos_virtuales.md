@@ -106,6 +106,36 @@
   
   [pyenv_command](https://github.com/pyenv/pyenv/blob/master/COMMANDS.md)
 
+:pushpin: **COMANDOS**
+
+- Conocer la version de python que estamos usando 'activa' `pyenv version`
+
+- Conoser las versiones de python instaladas `pyenv versions`
+  
+  - Si oberservamos solo system, es porque aun no hemos instalado versiones de python y solo esta usando la version del systema.
+  
+  - La que aparece con un asterisco (*) es la version activa.
+
+- Conocer las versiones de python disponibles `pyenv install --list`
+
+- Instalar una version de python `pyenv install <version>`
+
+- Desintalar una version de python, tener encuenta que no podemos desinstalar una version de python que se encuentre activa.
+  
+  - `pyenv uninstall <version>`
+  
+  - `pyenv uninstall -f <version>` desinstala la version sin hacer preguntas.
+
+- Seleccionar una version de python global, es decir para todo el computador.
+  
+  - `pyenv global <version>` define una version de python por defecto para el usuario.
+
+- Seleccionar una version de python local, es decir para un proyecto.
+  
+  - `pyenv local <version>` establece una version de python para un proyecto especifico, tener encuenta que debemos estar dentro de la carpeta.
+  
+  - Eliminar la version local del proyecto, es decir que no utilice esa version de python y utilice la global si esta establecida o la del sistema (system) `pyenv loacl --unset` tener encuenta que debemos estar dentro del proyecto/carpeta.
+
 ---
 
 ## PYENV VIRTUALENV
