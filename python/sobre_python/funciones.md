@@ -131,16 +131,21 @@ multiplica los resultados hasta obtener el valor final.
 
 Las **funciones lambda** en Python son funciones anónimas o pequeñas que se definen en una sola línea usando la palabra clave `lambda`.
 
-Son útiles cuando necesitas una función corta y rápida sin definirla con `def`.
+Son útiles cuando necesitas una función corta y rápida sin definirla con `def`. Si estás trabajando con una sola expresión en línea.
 
 ```python
 # Sintaxis:
 lambda argumentos: expresión
 
 # Ejemplo
-cuadrado = lambda x: x ** 2
-print(cuadrado(4))  # Salida: 16
+numbers = [1, 2, 3, 4, 5]
+
+even_numbers = list(filter(lambda x: x % 2 == 0, numbers))
+print(even_numbers)  # [2, 4]
 ```
+
+* No es una buena práctica asignar una función lambda a una variable, de ser necesario definir una funcion con `def`
+* Evitar crear funciones lambda que sean difíciles de leer o innecesariamente complicadas
 
 :round_pushpin: map()
 
@@ -170,3 +175,4 @@ numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 pares = list(filter(lambda x: x % 2 == 0, numeros))
 print(pares)  # Salida: [2, 4, 6, 8, 10]
 ```
+
