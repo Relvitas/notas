@@ -278,21 +278,72 @@ pyenv-virtualenv es un plugin de pyenv que proporciona características para ges
 Herramienta estándar de Python (desde Python 3.3)
 
 1. Crear un entorno virtual
-   
+
    `python -m venv mi_env`
    Esto crea una carpeta llamada `mi_env`, que contiene una versión aislada de Python y pip.
 
 2. Activar entorno virtual
-   
-   `source mi_env/bin/activate`
 
-3. Salir del entorno virtual
-   
+   1. `source mi_env/Scripts/activate` | linux, gitbash
+
+   2. `.venv\Scripts\activate.bat` | windows 
+
+3. Desactivar entorno virtual
+
    `deactivate`
 
 4. Eliminar un entorno virtual
-   
+
    ```bash
    rm -rf mi_env  # En Linux/macOS
-   rmdir /s /q mi_env  # En Windowshhhhhh
+   rmdir /s /q mi_env  # En Windows
    ```
+
+
+
+---
+
+## PYENV-WIN
+
+[repositorio](https://github.com/pyenv-win/pyenv-win) | Guía para instalar pyenv en Windows.
+
+1. Instalar este a través de PowerShell
+
+   ```powershell
+   Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "./install-pyenv-win.ps1"; &"./install-pyenv-win.ps1"
+   ```
+
+   Si PowerShell nos impide la ejecución por permisos:
+
+   1. Verficar que permisos tiene establecidos el usuario (CurrentUser)
+
+      ```powershell
+      Get-ExecutionPolicy -List
+      ```
+
+   2. Si este presenta la política (restricted) ejecutar el comando:
+
+      ```powershell
+      Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+      # Importante digitar S/Y
+      ```
+
+   3. Ejecutar el script de instalación
+
+   4. Restables políticas del usuario | Tener en cuenta que esto inhabilita la ejecución de scripts en powershell. podemos ejecutar pyenv en cmd
+
+      ```powershell
+      Set-ExecutionPolicy Undefined -Scope CurrentUser
+      ```
+
+2. Comprobar instalación exitosa | `pyenv --version`
+
+3. Comandos:
+
+   1. `pyenv install -l` Lista las versiones de python soportadas por pyenv.
+   2. `pyenv install <version>` Instala una versión compatible.
+   3. `pyenv global <version>` Establecer una versión de python como global.
+   4. `pyenv version` Comprobar que versiones de python estamos utilizando.
+   5. `python -c "import sys; print(sys.executable)"` Comprobar si python esta funcionando.
+   6. `pyenv versions` Muestra la versión actual activa.
+
