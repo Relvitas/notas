@@ -342,8 +342,11 @@ Herramienta estándar de Python (desde Python 3.3)
 
    1. `pyenv install -l` Lista las versiones de python soportadas por pyenv.
    2. `pyenv install <version>` Instala una versión compatible.
-   3. `pyenv global <version>` Establecer una versión de python como global.
-   4. `pyenv version` Comprobar que versiones de python estamos utilizando.
-   5. `python -c "import sys; print(sys.executable)"` Comprobar si python esta funcionando.
-   6. `pyenv versions` Muestra la versión actual activa.
+   3. `pyenv rehash` reconstruye los shims (pequeños ejecutables puente) que usa pyenv para que comandos como python, pip, ipython, black, etc. apunten a la versión correcta. Recomendado ejecutar despues de la instalacion de una version de python, desinstalacion o instalacion de paquetes que agreguen comandos.
+   4. `pyenv uninstall <versión>` Desinstalar una version de python.
+   5. `pyenv global <version>` Establecer una versión de python como global.
+   6. `pyenv version` Comprobar que versiones de python estamos utilizando.
+   7. `python -c "import sys; print(sys.executable)"` Comprobar si python esta funcionando.
+   8. `pyenv versions` Muestra la versión actual activa.
+   9. `pyenv local` Establece una version local a la carpeta de proyecto.
 

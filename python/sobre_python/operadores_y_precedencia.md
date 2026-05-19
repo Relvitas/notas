@@ -1,18 +1,28 @@
-## OPERADORES
+# OPERADORES
 
-:fire: Aritmeticos
+## ARITMETICOS
 
-| Operador | Descripción                                   |
-| -------- | --------------------------------------------- |
-| +        | Suma                                          |
-| -        | Resta                                         |
-| *        | Multiplicación                                |
-| /        | División                                      |
-| //       | División entera (devuelve el cociente entero) |
-| **       | Exponenciación                                |
-| %        | Módulo (residuo de división)                  |
+| Operador | Descripción                                                  |
+| -------- | ------------------------------------------------------------ |
+| +        | Suma                                                         |
+| -        | Resta                                                        |
+| *        | Multiplicación                                               |
+| /        | División                                                     |
+| //       | División entera (devuelve el cociente entero y redondea hacia abajo.) |
+| **       | Exponenciación                                               |
+| %        | Módulo (residuo de división)                                 |
 
-:fire: Asignacion
+:old_key: *Redondeo hacia abajo:*
+
+En el contexto de la división entera, se refiere a que el resultado de la división siempre se trunca hacia el numero inferior mas cercano, es decir, hacia la izquierda en la recta numérica.
+
+Para entenderlo de forma sencilla: si el resultado de una división exacta tiene decimales, el redondeo hacia abajo "**destruye"** la parte decimal y te deja con el entero menor.
+
+:one: Con numero negativos: (-9 % 4 = -2.25) el entero inferior mas cercano a -2.25 es -3 (porque -3 es menor que -2) 
+
+:two: Con números positivos: (9 % 4 = 2.25) el entero inferior más cercano a 2.25 es 2
+
+## ASIGNACION
 
 | Operador | Descripción                   |
 | -------- | ----------------------------- |
@@ -45,6 +55,8 @@
 ---
 
 ## Precedencia de operadores
+
+Que se ejecuta primero.
 
 | Precedencia | Operador(es)                                                     | Descripción                                                   | Dirección           |
 | ----------- | ---------------------------------------------------------------- | ------------------------------------------------------------- | ------------------- |

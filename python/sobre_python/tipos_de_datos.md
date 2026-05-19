@@ -1,6 +1,6 @@
 ## TIPOS DE DATOS
 
-Python es un lenguaje de programacion orientado a objetos. por tal motivo, son clases las que almacenan informacion.
+Python es un lenguaje de programación orientado a objetos. por tal motivo, son clases las que almacenan información.
 
 | Tipo de Dato | Clase en Python | Descripción                                                                     |
 | ------------ | --------------- | ------------------------------------------------------------------------------- |
@@ -23,7 +23,7 @@ Python es un lenguaje de programacion orientado a objetos. por tal motivo, son c
 > 
 > ```python
 > num1 = 5.3e6    # 5.3 × 10^6 → 5300000.0
-> num2 = 4.2e-5   # 4.2 × 10^-5 → 0.000042
+> num2 = 
 > ```
 
 :round_pushpin: Ejemplos y explicaciones
@@ -214,7 +214,73 @@ Accesibilidad:
     del nomDiccionario
 ```
 
-:pushpin: List comprehesion
+## LITERALES
+
+Un literal se refiere a datos cuyos valores están determinados por el literal mismo.
+
+:old_key: *Ejemplo:* 123
+
+En la separación de literales numéricos podemos utilizar "_" como separación de unidades (Python 3.6).
+
+:old_key: *Ejemplo:* 1_006_089_723
+
+En los valores flotantes se pueden omitir ciertos ceros
+
+:old_key: *Ejemplo:* `4.0` seria `4.` y `0.4` seria `.4`
+
+En los flotantes, también se puede implementar la notación científica.
+
+:old_key: *Ejemplo:* de `300000000` a `3E8` o `3e8` ("e" proviene de la palabra exponente)
+
+También se pueden convertir números muy cercanos al 0, es importante entender que Python siempre elige la presentación mas corta del numero.
+
+:old_key: *Ejemplo:* `print(0.0000000000000000000001)` | `>>> 4.2e-5 # 4.2 × 10^-5 → 0.000042`
+
+En los literales existe un literal especial muy utilizado `None` este literal es llamado un objeto de `NoneType`, Y puede ser utilizado para representar la ausencia de un valor.
+
+## CASTING
+
+Se le conoce como la conversión de tipos
+
+* `int()` Convertir a entero
+* `float()` Convertir a punto/coma flotante
+* `str()` Convertir a string
+* `bool()` Convierte un valor a booleano, de esta forma sabremos si un dato es de tipo `True` o `False`
+
+
+
+:bulb: *Ejemplo:*
+
+```python
+- int(nomVar) -> convierte a un entero (int)
+    ej: int('10') // > 10
+
+- float(nomVar) -> convierte a un número flotante (float)
+    ej: float('10.5') // > 10.5
+
+- str(nomVar) -> convierte a una cadena de texto (string)
+    ej: str(100) // > '100'
+
+- bool(nomVar) -> convierte a un valor booleano (True/False)
+    ej: bool(0) // > False
+
+- list() -> convierte a una lista
+    ej: list((1, 2, 3)) // > [1, 2, 3]
+
+- tuple() -> convierte a una tupla
+    ej: tuple([1, 2, 3]) // > (1, 2, 3)
+
+- set() -> convierte a un conjunto
+    ej: set([1, 2, 3]) // > {1, 2, 3}
+
+- dict() -> convierte a un diccionario
+    ej: dict([(1, 'a'), (2, 'b')]) // > {1: 'a', 2: 'b'}
+
+- complex() -> convierte a un número complejo (real + imaginario)
+    ej: complex(2,3) // > (2+3j)
+```
+
+## LIST COMPREHESION
 
 Una **list comprehension** es una forma concisa y eficiente de crear listas en Python. Permite generar listas en una sola línea de código, en lugar de usar un bucle `for` tradicional.
 
@@ -245,35 +311,17 @@ cuadrados = [num ** 2 for num in numeros]
 print(cuadrados)  # [1, 4, 9, 16, 25]
 ```
 
-:pushpin: Matrices
+## CONVENSIONES DE NUMEROS
 
-:pushpin: Casting
+Existen dos convenciones adicionales en Python que no son conocidas en el mundo de las matemáticas.
 
-```python
-- int(nomVar) -> convierte a un entero (int)
-    ej: int('10') // > 10
+### octales
 
-- float(nomVar) -> convierte a un número flotante (float)
-    ej: float('10.5') // > 10.5
+Si un numero esta precedido por un código `0O` o `0o` (cero-o) será tratado como un valor octal. base 8 [0...7]
 
-- str(nomVar) -> convierte a una cadena de texto (string)
-    ej: str(100) // > '100'
+### hexadecimal
 
-- bool(nomVar) -> convierte a un valor booleano (True/False)
-    ej: bool(0) // > False
+Si un numero esta precedido por un código `0x` o `0X` (cero-x), será tratado como un valor hexadecimal. base 16 (números del 0 al 9 y letras de la A a la F)
 
-- list() -> convierte a una lista
-    ej: list((1, 2, 3)) // > [1, 2, 3]
+A = 10, B = 11, C = 12, D = 13, E = 14, F = 15
 
-- tuple() -> convierte a una tupla
-    ej: tuple([1, 2, 3]) // > (1, 2, 3)
-
-- set() -> convierte a un conjunto
-    ej: set([1, 2, 3]) // > {1, 2, 3}
-
-- dict() -> convierte a un diccionario
-    ej: dict([(1, 'a'), (2, 'b')]) // > {1: 'a', 2: 'b'}
-
-- complex() -> convierte a un número complejo (real + imaginario)
-    ej: complex(2,3) // > (2+3j)
-```

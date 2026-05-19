@@ -2,6 +2,10 @@
 
 Docker es una plataforma que permite **crear, distribuir y ejecutar aplicaciones en contenedores**. Un contenedor es una unidad de software que empaqueta el código de una aplicación junto con todas sus dependencias, asegurando que funcione de manera consistente en cualquier entorno.
 
+### 🔹 **¿Que problema soluciona?**
+
+Alguna vez escuchaste "En mi máquina funciona perfectamente", Eso ocurre porque cada computadora tiene diferente sistema operativo, versiones de librería, configuraciones... y una aplicación que funciona en una maquina puede fallar en otra.
+
 ### 🔹 **¿Para qué sirve Docker?**
 
 - Evita problemas de "en mi máquina funciona, pero en el servidor no".
@@ -14,21 +18,23 @@ Docker es una plataforma que permite **crear, distribuir y ejecutar aplicaciones
 1. **Imagen** 📦: Una plantilla que contiene el sistema operativo y la aplicación.
 
 2. **Contenedor** 🏠: Una instancia en ejecución de una imagen.
-   
-   Forma de poder empaquetar nuestras aplicaciones tanto sus dependenciar y archivos de configuración.
+
+   Forma de poder empaquetar nuestras aplicaciones tanto sus dependencias y archivos de configuración.
 
 3. **Dockerfile** 📜: Un archivo que define cómo construir una imagen.
 
 4. **Docker Hub** 🌍: Un repositorio donde se almacenan imágenes listas para usar.
-   
+
    1. Privados
    2. Publicos "Docker Hub"
 
 5. **Volumen** 💾: Almacenamiento persistente para datos de los contenedores.
 
+   
+
 ---
 
-## Que es docker desktop?
+## 🔹***¿Que es "Docker desktop"?***
 
 Es una virtual machine
 
@@ -45,6 +51,8 @@ Es una virtual machine
 * Corre nativo en windows wsl2 (windows subsytem for linux)
 
 ---
+
+
 
 ## INSTALACION
 
@@ -114,29 +122,65 @@ Agregar nuestro usuario al grupo de docker, para no ejecutar sudo con cada coman
 
 Despues de agregar un usuario a un grupo, necesitamos cerrar sesion y volver a iniciarla para que los cambios surtan efecto. o simplemente ejecutar el comando dado.
 
+:old_key: ***WINDOWS***
+
+Docker en windows usa WSL2 por debajo para correr contenedores Linux, Es lo primero que debemos activar.
+
+1. Abrir powershell como administrador.
+
+   ```powershell
+   # Este comando instalaria  El Subsistema de Windows para Linux
+   wsl --install
+   ```
+
+2. Descargar e instalar docker.
+
+   ```cmd
+   # Conocer la arquitetura del procesador, cmd
+   echo %PROCESSOR_ARCHITECTURE%
+   ```
+
+   [link](https://www.docker.com/products/docker-desktop/) docker desktop es la aplicación visual que incluye todo: el Daemon, el Cliente, y una interfaz gráfica muy amigable.
+
+   *IMPORTANTE:* Se debe ejcutar el .exe como administrador, si nos arroja un alerta de permisos elevados. debemos eliminar la carpeta de dockerdesktop.
+   `c:\programdata > DockerDesktop` y vaciar los archivos temporales `%temp%` eliminar todo, y de nuevo ejecutar como administrador el .exe
+
+3. Verificar instalación.
+
+   ```powershell
+   # Deveria mostrar la version instalada.
+   docker --version
+   
+   # Ejecutar, si todo esta bien devolvera el mensaje.
+   docker run hello-world
+   
+   <# 
+   En caso de error, abrir la app de docker y ejecutar de
+   nuevo el comando.
+   #>
+   ```
+
+:file_folder: Los comandos se agrupan por categorías.
+
+Docker CLI
+|--- Imágenes -> docker image
+|--- Contenedores -> docker container
+|--- Volúmenes -> docker volumne
+|--- Redes -> docker network
+
 ---
 
 ## Almacen de contenedores
 
-https://hub.docker.com/
+
 
 ---
 
 ## COMANDOS
 
-:fire: Ver todas las imagenes descargadas
+:fire: Ver imágenes disponibles para su descarga
 
-```python
-docker images
-'''
-    REPOSITORY -> el nombre de la imagen que descargamos
-    TAG -> cada repositorio puede contener mas de una etiqueta
-        ejemplos lasted
-    IMAGE ID -> Identificador unico de imagen
-    CREATED -> Indica cuando la imagen fue creada
-    SIZE -> Indica cuando espacio esta ocupando la imagen
-'''
-```
+[link](https://hub.docker.com/), recordemos que docker hub solo almacena imágenes no contenedores ya que los contenedores nunca salen de nuestra maquina.
 
 :fire: Descargar una imagen
 
@@ -146,11 +190,45 @@ docker pull <imagen>
 
 # Especificando una version
 docker pull <imagen>:<version>
+
+'''
+Versiones/tags
+latest -> Version mas reciente disponible, se utiliza
+	por defecto si no utilizamos ningun tag. (1.02GB)
+alpine -> Basada en Alpine Linux, una distro minimalista (apk)
+	Es mas ligera y pequeña. (130MB), lo esencial y nada mas.
+slim -> Version reducida basada en debian, elimina 
+	herramientas y archivos innecesarios, mas ligera que
+	latest pero mas completa que alpine. usa apt (48MB).
+bullseye/bookworm/buster -> Son versiones debian
+	bookworm -> debian 12
+	bullseye -> debian 11
+	buster -> debian 10 (antigua)
+windowsservercore/nanoserver -> imagenes basadas en windows
+	solo funciona en hosts windws, menos comunes en el
+	mundo de docker.
+'''
 ```
 
-:fire: Remover una imagen
+:fire: Ver todas las imagenes descargadas
 
 ```python
+docker images
+'''
+    REPOSITORY -> el nombre de la imagen que descargamos
+    TAG -> version, cada repositorio puede 
+    contener mas de una etiqueta jemplo:lasted
+    IMAGE ID -> Identificador unico de imagen
+    CREATED -> Indica cuando la imagen fue creada
+    SIZE -> Indica cuanto espacio esta ocupando la imagen
+'''
+```
+
+:fire: Eliminar una imagen
+
+```python
+# Alias: image rm | rmi | image remove
+
 # Eliminar una version especifica
 docker image rm <imagen>:<version>
 
@@ -159,6 +237,101 @@ docker image rm <imagen>:<version>
 # la descarga
 docker image rm <imagen>
 ```
+
+:fire: Crear y ejecutar un contenedor
+
+```python
+# Crea un contenedor nuevo desde la imagen y lo ejecuta.
+docker run -d --name mi-web <imagen>
+```
+
+:fire: Ejecutar un contenedor ya creado
+
+```python
+# Esto encien un contenedor que esta detenido.
+'''
+    Recordemos que el <IDCONTENEDOR> es el ID que obtuvimos
+        durante la creacion del container. o podemos utilizar
+        el nombre del contenedor que asignamos.
+
+    Una vez, ejecutado, este nos devolvera el ID nuevamente.
+'''
+# Alias: container start | start
+docker <alias> <IDCONTENEDOR|nombre_contenedor>
+```
+
+:fire: Detener un contenedor
+
+```python
+'''
+    Recordemos que el <IDCONTAINER> puede ser el id largo, corto 
+        o el nombre del contenedor
+'''
+# Alias: container stop | stop
+docker <alias> <IDCONTAINER|nombre_contenedor>
+```
+
+:fire: Reiniciar un contenedor
+
+```python
+docker restart mi-web
+```
+
+:fire: Eliminar un contenedor
+
+```python
+''' 
+    <nombre_contenedor> es el nombre del contenedor que 
+        encontramos en docker ps -a, o el que le asignamos.
+'''
+# Alias: container rm | container remove | rm
+# El contenedor debe estar detenido antes de ser eliminado.
+docker <alias> <IDCONTENEDOR|nombre_contenedor>
+```
+
+:fire: Ver logs de un contenedor
+
+```python
+# Este nos permite validar si un contenedor se esta ejecutando.
+# Este comando solo imprime los logs del momento
+docker logs <IDCONTENEDOR|nombre_contenedor>
+
+# Este comando se queda escuchando, si aparecen nuevos logs
+docker logs --follow <IDCONTENEDOR|nombre_contenedor>
+```
+
+:fire: Validar si un contenedor se esta ejecutando
+
+```python
+'''
+    Devolvera una tabla:
+    CONTAINER ID -> Contiene el ID de nuestro contenedor, este ID
+        lo podemos tomar y guardar en caso de que lo queramos
+        volver a ejecutar, ya que no es necesario el ID completo
+        de los pasos anteriores.
+
+    IMAGE -> el nombre de la imagen base con la que se creo nuestro
+        contenedor.
+
+    COMMAND -> es el comando que utiliza el contenedor para poder
+        ejecutarse.
+
+    CREATED -> Indica hace cuanto fue creado el contenedor.
+
+    STATUS -> El estado que el contenedor tiene.
+
+    PORT -> Es el puerto que el contenedor esta utilizando.
+        este indica que clientes se puedan conectar a este para
+        leer los datos de un DB
+
+    NAMES -> indica el nombre que tiene nuestro contenedor.
+'''
+# Alias: container ls | container list | container ps | ps
+# Opciones: -a lista todos los contenedores
+docker <alias>
+```
+
+---
 
 :fire: Crear un contenedor en base a las imagenes descargadas
 
@@ -175,19 +348,6 @@ docker image rm <imagen>
 '''
 docker create --name <nombre_contenedor> <imagen> # version corta
 docker container create --name <nombre_contenedor> <imagen> # version larga
-```
-
-:fire: Correr un contenedor
-
-```python
-'''
-    Recordemos que el <IDCONTENEDOR> es el ID que obtuvimos
-        durante la creacion del container. o podemos utilizar
-        el nombre del contenedor que asignamos.
-
-    Una vez, ejecutado, este nos devolvera el ID nuevamente.
-'''
-docker start <IDCONTENEDOR|nombre_contenedor>
 ```
 
 :fire: Asignar un puerto (port mapping)
@@ -217,72 +377,7 @@ docker create -p27017:27017 --name <nom_contenedor> <imagen_base>
     --network <nombre_red>
 ```
 
-:fire: Validar si un contenedor se esta ejecutando
-
-```python
-'''
-    Devolvera una tabla:
-    CONTAINER ID -> Contiene el ID de nuestro contenedor, este ID
-        lo podemos tomar y guardar en caso de que lo queramos
-        volver a ejecutar, ya que no es necesario el ID completo
-        de los pasos anteriores.
-
-    IMAGE -> el nombre de la imagen base con la que se creo nuestro
-        contenedor.
-
-    COMMAND -> es el comando que utiliza el contenedor para poder
-        ejecutarse.
-
-    CREATED -> Indica hace cuanto fue creado el contenedor.
-
-    STATUS -> El estado que el contenedor tiene.
-
-    PORT -> Es el puerto que el contenedor esta utilizando.
-        este indica que clientes se puedan conectar a este para
-        leer los datos de un DB
-
-    NAMES -> indica el nombre que tiene nuestro contenedor.
-'''
-docker ps
-```
-
-:fire: Detener un contenedor en ejecucion
-
-```python
-'''
-    Recordemos que el <IDCONTAINER> puede ser el id largo, corto 
-        o el nombre del contenedor
-'''
-docker stop <IDCONTAINER|nombre_contenedor>
-```
-
-:fire: Listar todos los contenedores creados
-
-```python
-docker ps -a
-```
-
-:fire: Eliminar un contenedor
-
-```python
-''' 
-    <nombre_contenedor> es el nombre del contenedor que 
-        encontramos en docker ps -a, o el que le asignamos.
-'''
-docker rm <nombre_contenedor>
-```
-
-:fire: Conoser si un servidor se ejecuto de manera correcta
-
-```python
-# Este comando solo imprime los logs del momento
-docker logs <IDCONTENEDOR|nombre_contenedor>
-
-# Este comando se queda escuchando, si aparecen nuevos logs
-docker logs --follow <IDCONTENEDOR|nombre_contenedor>
-```
-
-:fire: Hacer todo lo anterior en un solo comando
+ :fire: Hacer todo lo anterior en un solo comando
 
 ```python
 '''
@@ -294,9 +389,11 @@ docker logs --follow <IDCONTENEDOR|nombre_contenedor>
     -d -> "detached" No muestra los logs y solo nos devuelve a la linea de
         comando, mostrandos el ID
 '''
-docker run --name <nombre_contenedor> -
-    p<puerto_local>:<puerto_docker> -d nombre_imagen_base
+docker run --name <nombre_contenedor> 
+	-p<puerto_local>:<puerto_docker> -d nombre_imagen_base
 ```
+
+---
 
 :fire: Variables de entorno
 
@@ -529,9 +626,9 @@ ARCHIVO DE DESARROLLO
        <nombre_volumen>:
    ```
 
-EJecutamos el comando para inciar
+   EJecutamos el comando para inciar
 
-docker compose -f docker-compose-dev.yml up
+   docker compose -f docker-compose-dev.yml up
 
 ## Archivo compose
 

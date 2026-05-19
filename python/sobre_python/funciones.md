@@ -1,42 +1,31 @@
 ## FUNCIONES
 
+una **función** es un bloque de código que realiza una tarea específica y que puedes reutilizar varias veces dentro de un programa.
+
+:old_key: *Funciones predefinidas/incorporadas por el lenguaje:* [URL](https://docs.python.org/3/library/functions.html)
+
+```mermaid
+flowchart TD
+A([FUNCION]) --- B(["Argumentos posicionales"])
+B --- C("Son aquellos cuyo significado viene dictado por su posicion, por ejemplo, el segundo argumento se emite despues del primero, el terecero despues del segundo, etc.")
+A --- D(["Argumentos palabras calve"])
+D --- E("Son aquellos cuyo significado no está dicatado por su ubicacion, si no por una palabra especial (palabra clave) que se utilza para identificarlos, importante que siempre van despues de un argumento posicional")
+```
+
+:key: *Sintaxis:*
+
 ```python
-python
-def nom_funcion(parametro = valor, parametro) -> tipoDato:
+'''
+parametro = valor | esto establece un valor por default
+tipoDato = tipodato | se conoce como "hint" y esto solo indica el 		tipo de dato que retorna la funcion.
+return valor = se encarga de retornar un resultado cuando se agrega 	implicitamente.
+*args (Argumentos variables) = se suele utilizar esta forma cuando 		desconocemos la cantidad de argumentos que puede recibir la 		funcion este *args se convierte en tupla. 
+**kwars () = Este recibe un diccionario clave='valor'
+'''
+
+def nom_funcion(parametro = valor, *args, **kwars) -> tipoDato:
     # cuerpo funcion
-
-nom_funcion(argumentos) # invocacion de la funcion
-```
-
-> parametro = valor -> valores por default
-> 
-> -> tipoDato -> hint/ tipo de dato que retorna la función
-
-:fire: return
-
-Cuando no se agrega un return este se agrega de forma implicita.
-
-```python
-def nombre_funcion():
-    return valor # se encarga de retornar un resultado
-```
-
-:fire: *args
-
-Argumentos variables, se suele utilizar esta forma cuando desconocemos la cantidad de argumentos que puede recibir la funcion.
-
-```python
-def nom_funcion(*args): # *variable se convierte en tupla
-    print(args)
-```
-
-:fire: **kwars
-
-Recivir elementos de clave valor
-
-```python
-def nom_funcion(**kwars): # recive un diccionario o clave='valor'
-    print(kawars)
+    return valor
 
 nom_funcion(clave='valor', clave=valor) # pasando clave=valor
 
@@ -47,7 +36,7 @@ diccionario = {
 nom_funcion(diccionario) # pasando el diccionario
 ```
 
-:fire: yield
+:bulb: ​ *yield*
 
 `yield` es una palabra clave en Python que se usa dentro de una función para crear un **generador**. A diferencia de `return`, `yield` no termina la ejecución de la función, sino que **pausa** su estado y permite retomarlo más adelante.
 
@@ -81,9 +70,9 @@ itera sobre los valores generados.
 '''
 ```
 
-:fire: funciones recursivas
+##  FUNCIONES RECURSIVAS
 
-Son funciones que se mandan a llamar asi mismas para completar cierta tarea.
+Son funciones que se mandan a llamar así mismas para completar cierta tarea.
 
 :warning: **Regla importante:** Debe tener un **caso base** para evitar una recursión infinita.
 
@@ -127,7 +116,7 @@ multiplica los resultados hasta obtener el valor final.
 '''
 ```
 
-:fire: Funciones lambda
+## FUNCIONES LAMBDA
 
 Las **funciones lambda** en Python son funciones anónimas o pequeñas que se definen en una sola línea usando la palabra clave `lambda`.
 
@@ -176,3 +165,127 @@ pares = list(filter(lambda x: x % 2 == 0, numeros))
 print(pares)  # Salida: [2, 4, 6, 8, 10]
 ```
 
+## FUNCIONES PREDEFINIDAS
+
+* `round(objeto, ndcimales)` redondea un numero a unumero especifico de lugar de decimales. Por defecto, esta funcion redondea al entero mas cercano y devuelve un numero entero sin decimales.
+
+  ```python
+  num = 1.6
+  print(round(num))
+  # >>> 2
+  #! IMPORTANTE el redonde aplica apartir del 6
+  ```
+
+* `abs()` Devuelve el valor absoluto de un numero, es decir sin el signo.
+
+  ```python
+  num = -8
+  print(abs(num))
+  # >>> 8
+  ```
+
+* `pow(base, exponente, opc-modulo)` Elevar un numero a una potencia
+
+  ```python
+  # (base ** exponente) % modulo
+  print(pow(2, 3, 5)) # (2 ** 3) % 5
+  # >>> 3
+  ```
+
+* `maketrans()` Crea una tabla de traduccion, es como un diccionario especial que dice, esta letra se cambia por esta letra.
+
+  ```python
+  '''
+  toma dos cadenas de igual longitud y devuelve 
+  una tabla de traducción que asigna cada carácter 
+  de la primera cadena con el carácter correspondiente 
+  de la segunda cadena
+  '''
+  tabla = str.maketrans("aeiou", "12345")
+  ''' Esto es lo que esta sucediendo
+  a → 1
+  e → 2
+  i → 3
+  o → 4
+  u → 5
+  '''
+  ```
+
+  * se utiliza en conjunto con `translate()` **aplica una tabla de traducción a una cadena de texto**, reemplazando o eliminando caracteres según las reglas definidas.
+
+    - `maketrans()` 👉 **define las reglas**
+
+    - `translate()` 👉 **ejecuta las reglas**
+
+```python
+texto = "hola mundo"
+print(texto.translate(tabla))
+# >>> h4l1 m5nd4
+```
+
+* `range()` Esta funcion se utiliza para generar una secuencia de enteros.
+
+  ```python
+  """
+  start: por defecto viene en 0 que indica desde donde
+  queremos comenzar la secuencia de numeros.
+  stop: indica hasta donde generar numeros, esto sin
+  incluir el numero final, es decir si es 5 solo iria
+  hasta el .
+  step: indica de cuanto en cuanto realizar el 
+  incremento a la secuencia.
+  """
+  range(start, stop, step)
+  
+  for num in range(2, 11, 2):
+      print(num)
+  
+  # >>> 2, 4, 6, 8, 10
+  ```
+
+  * Si no se proprocionan argumentos esta devolvera un TypeError.
+  * Esta funcion solo recibe enteros, si asignamos flotantes esta nos devolvera un `TypeError`
+  * Tambien se puede lograr una secuencia decreciente, con el step en negativo y un start en positivo.
+
+* `enumerate(iterable, start=n)` Esta funcion se encarga de llevar un contador ya sea de una (lista, tupla, string) generando un objeto que contiene tuplas.
+
+```python
+ """
+iterable: acemos referencia a la coleccion de datos
+lista, tupla, string.
+start=n: Indicamos en que numero debe empezar el
+contador.
+"""
+enumerate(iterable, start=0)
+
+frutas = ['manzana', 'banana', 'naranja']
+
+for indice, fruta in enumerate(frutas):
+    print(f"{indice}: {fruta}")
+
+# Salida:
+# 0: manzana
+# 1: banana
+# 2: naranja
+```
+
+* `zip()` Permite combinar dos o más iterables (listas, tuplas, etc.) elemento por elemento, creando tuplas con los elementos correspondientes de cada iterable.
+
+  ```python
+  zip(iterable1, iterable2, ...)
+  ```
+
+  * `zip()` toma elementos de la misma posición de cada iterable y los agrupa en tuplas. Se detiene cuando el iterable más corto se agota.
+
+  ```python
+  nombres = ['Ana', 'Luis', 'Carlos']
+  edades = [25, 30, 22]
+  
+  for nombre, edad in zip(nombres, edades):
+      print(f"{nombre} tiene {edad} años")
+  
+  # Salida:
+  # Ana tiene 25 años
+  # Luis tiene 30 años
+  # Carlos tiene 22 años
+  ```

@@ -1,32 +1,64 @@
-:pushpin: Que Compone a un lenguaje
+# PYTHON
 
-* Un alfabeto
-  
-  * conjunto de símbolos para formar palabras en determinado lenguaje.
+Python es un leguaje de programación de alto nivel, interpretado, orientado a objetos y de uso generalizado con semántica dinámica, que se utiliza para la programación de propósito general.
 
-* Un léxico
-  
-  * Conjunto de palabras que el leguaje ofrece al usuario.
+:bulb: *Descargar el interprete de Python:* [URL](https://www.python.org/downloads/)
 
-* Una sintaxis
-  
-  * Conjunto de reglas. Es como la gramática. Si no sigues las reglas, la computadora no entiende lo que le dices.
-
-* Una semántica
-  
-  * Conjunto de reglas que determinan si una frase tiene sentido. Es como asegurarse de que lo que estás diciendo es lógico y tiene sentido.
-
-```python
-print('hola')
+```mermaid
+flowchart TD
+A([PYTHON]) --- B([OBJETIVOS])
+B --- C("- facil e intuitivo
+- codigo abierto
+- comprensible
+- adecuado para tareas cotidiandas")
+A --- D(["POR QUE"])
+D --- E("
+- facil de aprender
+- facil de enseñar
+- facil de utilizar
+- facil de entender
+- facil de obtener, intalar y deplegar")
+A --- F(["V2, V3"])
+F --- G("Estas versiones no son compatibles entre si.")
+A --- H(["IMPLEMENTACIONES"])
+H --- I("Programa/entorno que brinda soporte para la ejecucion
+de programas escritos en el lenguaje python, representado por la
+implementacion de referecia CPython.")
+I --- J("Guido, utilizo el lenguaje C, para su implementacion.
+Otras:
+Cython -> Calculos
+Jython -> Escrito en Java en lugar de C.
+MicroPython -> Para microcontroladores.
+")
 ```
 
-> - **Alfabeto:** Usa letras, comillas y paréntesis.
-> 
-> - **Léxico:** Usa la palabra `print`, que Python ya entiende.
-> 
-> - **Sintaxis:** Todo está bien escrito, en el orden correcto.
-> 
-> - **Semántica:** Tiene sentido: le estás diciendo a la computadora que muestre "Hola".
+## *Componentes de un Leguaje:*
+
+```mermaid
+flowchart TD
+A(["LENGUAJE"]) --- B(["COMPONENTES"])
+B --- C("alfabeto: Conjunto de simbolos para formar palabras en determinado lenguaje.")
+C --- D("lexico: Conjunto de palabras que el leguaje ofrece al usuario.")
+D --- F("sintaxis: Conjunto de reglas. La maquina debe entender lo que se le esta pidiendo.")
+F --- G("semantica: Conjunto de reglas que determinan si una frase tiene sentido.")
+A --- H([ALTO NIVEL])
+H --- I("Estos lenguajes son similares a los naturales en que usan simbolos, palabras y convenciones legibles por humanos.
+")
+I --- J("Un programa escrito en este nivel, se denomina código fuente y el archivo que contiene el código fuente se denomina archivo fuente.")
+A --- K(["COMPILADO"])
+K --- L("El progrma se traduce una vez a lenguaje maquina, tener encuenta que esto se realiza con cada cambio en el codigo fuente.")
+A --- N(["INTERPRETADO"])
+N --- M("Cada usuario necesita el interprete para ejecutar el codigo fuente, y se puede ejecutar cada que se necesite.")
+L --- O("La ejecucion del codigo traducido suele ser mas rápida.
+\nSolo el usuario debe tener el compilador; el usuario final puede usar el codigo sin él.
+\nEl codigo traducido se almacena usando lenguaje máquina; como es muy dificil de entender, es probable que tus propios inventos y trucos de programacion sigan siendo tu secreto.
+")
+M --- P("Puedes ejecutar el codigo tan pronto como lo completes; no hay fases adicionales de traduccion.
+\nEl codigo se alamacena usando un lenguaje de programacion, no el lenguaje maquina; esto significa que se puede ejecutar en computadoras que usan diferentes lenguajes maquina; no compila tu codigo por separado para cada arquitectura diferente.")
+M --- Q("A menudo se le denominan lenguajes de scripting, mientras que el codigo fuente codificado con ellos se denoniman scripts.")
+```
+
+
 
 :pushpin: Rasgos
 
@@ -34,7 +66,7 @@ print('hola')
   
   * A partir de esta versión se pueden agregar (_) en la separación de enteros literales/flotantes esto como una forma de visualizar mejor los valores. 1_932_54/3.45_234/2_300.40
 
-:pushpin: Operadores
+  :pushpin: Operadores
 
 * Prioridad: Es importante entender que los operadores tienen prioridad a la hora de realizar cálculos.
   
@@ -74,7 +106,7 @@ print('hola')
       
       - sep="": podemos indicar que realizar con los espacios asignador por el separador de argumentos.
 
-:pushpin: Tipos de datos
+      :pushpin: Tipos de datos
 
 * Enteros:
   
@@ -105,7 +137,7 @@ print('hola')
   
   * el literal `None`. Este literal es llamado un objeto de `NoneType`, y puede ser utilizado para representar **la ausencia de un valor**. Pronto se hablará más acerca de ello
 
-:pushpin: Términos
+  :pushpin: Términos
 
 * IL(instruction list): Lista de instrucciones.
 
