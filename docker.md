@@ -54,6 +54,35 @@ Es una virtual machine
 
 
 
+## IMAGEN
+
+Estructura de un nombre de imagen
+
+```python
+'''
+Usuario: Autor (Omitido en oficiales)
+Imagen: Nombre de la imagen
+Tag: Versión o variante
+'''
+usuario/imagen:tag
+```
+
+```mermaid
+flowchart TD
+A([VERSIONAMIENTO]) --- B(latest)
+B --- C(docker pull nginx:latest\n - Es la version más reciente disponible.\n - Se usa por defecto si no especificas ningún tag.\n - No siempre es la mas estable.)
+A --- D(alphine)
+D --- E(docker pull nginx:alphine\n - Basada en Alpine Linux, una distro minimalista.\n - Es la más ligera y pequeña.\n - Perfecta cuando necesitas optimizar espacio.\n - Usa apk en lugar apt para instalar paquetes.)
+A --- F(slim)
+F --- G(docker pull python:slim\n - Versión reducida basada en Debina.\n - Elimina herramientas y archivos innecesarios.\n - Más ligera que latest pero más completa que alpine.\n - Usa apt para instalar paquetes.)
+A --- H(bullseye / bookworm / buster)
+H --- I(docker pull node:bullseye\n - Son versiones de Debian en las que está basada la imagen.\n Bookworm: Debian 12 -> más reciente.\n - Bullseye: Debian 11.\n - Buster: Debian 10 -> antigua.\n - Se pueden combinar: docker pull node:18-bullseye-slim)
+A --- J(windowsservercore / nanoserver)
+J --- K(docker pull mcr.microsoft.com/windows/nanoserver.\n Imágenes basadas en Windows.\n - Solo funcionan en hosts Windows.\n - Menos comunes en el mundo Docker.)
+```
+
+
+
 ## INSTALACION
 
 https://docs.docker.com/desktop/setup/install/linux/ubuntu/, no hay necesidad de instalar la interfaz, solo con el tutorial de [docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)

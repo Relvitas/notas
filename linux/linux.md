@@ -12,27 +12,70 @@ wsl --install
 
 ---
 
+## GESTOR DE PAQUETES
+
+Es una herramienta de software diseñada para **instalar, actualizar, configurar y eliminar programas** en tu computadora de forma automática y segura.
+
+```python
+# ubuntu, debian, linux mint, pop!_os
+apt [subcomando] [opciones] 
+
+# Subcomandos:
+update -> Actualiza la lista de paquetes disponibles en los servidores de internet.
+upgrade -> Instala las versiones más nuevas de todos los programas que ya tenemos instalados.
+install [programa] -> Busca, descarga e instala el programa.
+remove [programa] -> Desinstala el programa, pero conserva los archivos de configuracion que hayamos modificado.
+purge [programa] -> Desinstala el programa por completo.
+autoremove -> Limpia el sistema. Borra automaticamente los paquetes y librerias que se instalaron en su momento como dependencias de otro programa que no son necesarois porque se elimino el programa principal.
+search [palabra_clave] -> Busca en todo el catálogo de linux cuaquier programa que coincida.
+show [programa] -> Muestra una ficha técnica de un programa.
+list -> Muestra una lista gigantesca con todos los paquetes disponibles e instalados en el sistema.
+--installed, muestra solo los instalados
+--upgradeable, muestra que programas tienen una actualizacion disponible.
+clean -> Borra todos los archivos instaladores .deb que se descargaron al instalar programas.
+autoclean -> Similar a clean, pero inteligente. solo borra del disco los instaladores de programas antiguos que ya no se pueden descargar ni existen en los servidores.
+```
+
 ## COMANDOS
 
-Un comando puede ser:
+:pushpin: *Sintaxis:*
 
-1. Un programa ejecutable.
-   
-   /user/bin (binario)
+```python
+'''
+- Comando Principal: Es el nombre del programa o la herramientas que utilizaremos para que realice un trabajo. ¿Qué programa voy a usar?.
 
-2. Un comando de utilidad de la shell.
-   
-   Ya bienen dentro de la shell (is a shell builtin)
+- Sub-Comando: Es la accion general que pedimos al programa que realice. ¿Qué acción va a realizar ese programa?.
 
-3. Una función de shell.
-   
-   Son funciones de shell esternas
+- Flag (Opción): Son los detalles o ajustes de la accion. Sirven para modificar cómo queremos que se haga el trabajo. ¿Bajo qué condiciones o de qué manera quiero que se haga?.
 
-4. Un alias.
-   
-   is aliased to 'ls --color=auto'
+- Argumento Objeto: Es el blanco de la accion, el elemento real y concreto sobre el cual va a caer todo el peso del comando. Sin el argumento objeto, el comando se queda a medias, por que se sabe qué tiene que hacer, pero no sabe a quien hacérselo. ¿A qué cosa, archivo o programa específico se lo voy a hacer?.
+'''
+[comando principal] [subcomando] [flag (opcion)] [argumento objeto]
+```
 
-:fire: type
+
+
+:key: *Un comando puede ser:*
+
+:one: Un programa ejecutable.
+
+`/user/bin (binario)`
+
+:two: Un comando de utilidad de la Shell.
+
+Ya vienen dentro de la Shell (is a Shell builtin)
+
+:three: Una función de Shell.
+
+Son funciones de Shell externas
+
+:four: Un alias.
+
+is aliased to 'ls --color=auto'
+
+
+
+:fire: *type*
 
 El comando `type` se usa para **mostrar información sobre cómo se ejecuta un comando** en el sistema.
 
@@ -158,13 +201,13 @@ passwd [opciones] [usuario]
 -S    Muestra el estado de la cuenta de un usuario.    passwd -S usuario
 ```
 
-:fire: grep
+:fire: grep (global regular expresión print)
 
 El comando `grep` se usa para **buscar patrones de texto** dentro de archivos o la salida de otros comandos.
 
 ```bash
 # Sintaxis:
-grep [opciones] "patrón" [archivo]
+grep [opciones] "patrón" [archivo archivo2]
 
 # Opciones:
 -i    Ignora mayúsculas y minúsculas.    grep -i "error" archivo.txt
@@ -594,24 +637,29 @@ Las **redirecciones** permiten controlar la entrada y salida de comandos en la t
 
 Shell:
 
-1. stdin (0) es la entra - teclado
+1. stdin (0) es la entra - (teclado)
 
-2. stdout (1) cuando obtenemos respuesta del comando
+2. stdout (1) cuando obtenemos respuesta del comando - (pantalla)
 
-3. stderr (2) es el error que ocuerre cuando algo sale mal
+3. stderr (2) es el error que ocuerre cuando algo sale mal - (pantalla)
 
-| Símbolo  | Descripción                                                      | Ejemplo                                       | Explicación                                                     |
-| -------- | ---------------------------------------------------------------- | --------------------------------------------- | --------------------------------------------------------------- |
-| `>`      | Redirección de **salida estándar** (sobrescribe el archivo).     | `echo "Hola" > salida.txt`                    | Escribe `"Hola"` en `salida.txt`, sobrescribiendo su contenido. |
-| `>>`     | Redirección de **salida estándar** (añade al archivo).           | `echo "Mundo" >> salida.txt`                  | Agrega `"Mundo"` al final de `salida.txt`.                      |
-| `<`      | Redirección de **entrada estándar** desde un archivo.            | `wc -l < archivo.txt`                         | Cuenta las líneas de `archivo.txt`.                             |
-| `2>`     | Redirección de **errores estándar** (sobrescribe).               | `ls /carpeta_no_existente 2> error.txt`       | Guarda el error en `error.txt`.                                 |
-| `2>>`    | Redirección de **errores estándar** (añade al archivo).          | `ls /otra_carpeta_no_existente 2>> error.txt` | Agrega el error al final de `error.txt`.                        |
-| `&>`     | Redirección de **salida y errores estándar** (sobrescribe).      | `comando &> salida.txt`                       | Guarda la salida y los errores en `salida.txt`.                 |
-| `&>>`    | Redirección de **salida y errores estándar** (añade al archivo). | `comando &>> salida.txt`                      | Agrega salida y errores a `salida.txt`.                         |
-| `>\|`    | Fuerza la sobrescritura, incluso si está activada `noclobber`.   | `echo "Texto" >\| protegido.txt`              | Sobrescribe `protegido.txt` aunque `noclobber` esté activo.     |
-| `tee`    | Guarda la salida y la muestra en pantalla.                       | `ls \| tee salida.txt`                        | Muestra la salida en la terminal y la guarda en `salida.txt`.   |
-| `tee -a` | Agrega la salida a un archivo sin sobrescribir.                  | `ls \| tee -a salida.txt`                     | Muestra la salida y la agrega a `salida.txt`.                   |
+/dev/[std] -> en la raíz encontraremos estas carpetas, en donde se almacena lo que ocurre con los comandos.
+
+| Símbolo           | Descripción                                                  | Ejemplo                                       | Explicación                                                  |
+| ----------------- | ------------------------------------------------------------ | --------------------------------------------- | ------------------------------------------------------------ |
+| `>`               | Redirección de **salida estándar** (sobrescribe el archivo). | `echo "Hola" > salida.txt`                    | Escribe `"Hola"` en `salida.txt`, sobrescribiendo su contenido. |
+| `>>`              | Redirección de **salida estándar** (añade al archivo).       | `echo "Mundo" >> salida.txt`                  | Agrega `"Mundo"` al final de `salida.txt`.                   |
+| `<`               | Redirección de **entrada estándar** desde un archivo.        | `wc -l < archivo.txt`                         | Cuenta las líneas de `archivo.txt`.                          |
+| `2>`              | Redirección de **errores estándar** (sobrescribe).           | `ls /carpeta_no_existente 2> error.txt`       | Guarda el error en `error.txt`.                              |
+| `2>>`             | Redirección de **errores estándar** (añade al archivo).      | `ls /otra_carpeta_no_existente 2>> error.txt` | Agrega el error al final de `error.txt`.                     |
+| `&>`              | Redirección de **salida y errores estándar** (sobrescribe).  | `comando &> salida.txt`                       | Guarda la salida y los errores en `salida.txt`.              |
+| `&>>`             | Redirección de **salida y errores estándar** (añade al archivo). | `comando &>> salida.txt`                      | Agrega salida y errores a `salida.txt`.                      |
+| `>\|`             | Fuerza la sobrescritura, incluso si está activada `noclobber`. | `echo "Texto" >\| protegido.txt`              | Sobrescribe `protegido.txt` aunque `noclobber` esté activo.  |
+| `tee`             | Guarda la salida y la muestra en pantalla.                   | `ls \| tee salida.txt`                        | Muestra la salida en la terminal y la guarda en `salida.txt`. |
+| `tee -a`          | Agrega la salida a un archivo sin sobrescribir.              | `ls \| tee -a salida.txt`                     | Muestra la salida y la agrega a `salida.txt`.                |
+| `[redireccion]&1` | Redirecciona la respuesta de un comando.                     | `ls > lista.txt 2>&1`                         | redirecciona los errores al archivo `lista.txt` y si todo sale bien de igual forma al mismo archivo de `lista.txt` |
+
+
 
 ---
 
@@ -884,8 +932,6 @@ unzip [opciones] archivo.zip
 
 
 ---
-
-
 
 ## MANEJO PROCESOS
 
