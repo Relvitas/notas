@@ -4,6 +4,36 @@
 
     [FAQ: Installation | Django documentation | Django](https://docs.djangoproject.com/en/5.1/faq/install/#faq-python-version-support)
 
+## INSTALACION DJANGO
+
+Versiones disponibles y como instalar: [URL](https://www.djangoproject.com/download/)
+
+### COMPROBAR VERSION INSTALADA
+
+```python
+# Dentro de python
+>>> import django
+>>> print(django.get_version()) # retorna la version
+
+# Comando
+python -m django --version
+```
+
+## COMANDOS
+
+* Iniciar proyecto en carpeta actual: `django-admin startproject config .`
+* Iniciar servidor de desarrollo: `python manage.py runserver`
+
+## ARCHIVOS
+
+* `manage.py:` Este es como el control remoto del proyecto. En este archivo le damos ordenes a Django.
+* `mysite/ | config/` Este es el cerebro del proyecto, este nombre se utiliza para importar cosas.
+* `mysite/__init__.py:` Es un archivo vació, su misión es indicar que la carpeta es un paquete de python.
+* `mysite/settings.py:`Este es el archivo de configuración.
+* `mysite/urls.py:` Este es el archivo de rutas, indica a donde enviar un usuario.
+* `mysite/asgi.py:` Es la entrada para servidores modernos. Django puede hacer varias cosas al mismo tiempo.
+* `mysite/wsgi.py:` Es la entrada para servidores tradicionales.
+
 ## Instalar apache y mod_wsgi
 
 Importante es para un (despliegue en producción), si solo es para pruebas utilizar la intalacion del serivdor libiano.

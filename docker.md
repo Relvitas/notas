@@ -56,6 +56,13 @@ Es una virtual machine
 
 ## IMAGEN
 
+Esta vendría siendo la aplicación, pues contiene todo lo necesario para crear un proceso basado en la imagen.
+*Contiene:*
+:one: Un sistema operativo.
+:two: Dependencias -> como (NodeJS, Python)
+:three: Archivos de la aplicación.
+:four: Variables de entorno.
+
 Estructura de un nombre de imagen
 
 ```python
@@ -81,11 +88,63 @@ A --- J(windowsservercore / nanoserver)
 J --- K(docker pull mcr.microsoft.com/windows/nanoserver.\n Imágenes basadas en Windows.\n - Solo funcionan en hosts Windows.\n - Menos comunes en el mundo Docker.)
 ```
 
+## CONTENEDOR
 
+Contiene un proceso que se inicia a partir de una imagen.
 
-## INSTALACION
+- Es aislado.
+- Contiene su propio sistema de archivos.
+- Se puede detener como volver a iniciar.
+- Se pueden crear multiples contenedores en base a la misma imagen.
+- Cada contenedor es independiente por tanto lo que se haga en uno no afecta al otro.
 
-https://docs.docker.com/desktop/setup/install/linux/ubuntu/, no hay necesidad de instalar la interfaz, solo con el tutorial de [docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
+## INSTALACIÓN
+
+### LINUX
+
+No necesitamos instalar el **app** si solo utilizaremos el **cli**.
+Docker APP: [URL](https://docs.docker.com/desktop/setup/install/linux/ubuntu/)
+Docker CLI: [URL](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
+
+### WINDOWS
+
+Docker en windows usa WSL2 por debajo para correr contenedores Linux, Es lo primero que debemos activar.
+
+1. Abrir powershell como administrador.
+
+   ```powershell
+   # Este comando instalaria  El Subsistema de Windows para Linux
+   wsl --install
+   ```
+
+2. Descargar e instalar docker.
+
+   ```cmd
+   # Conocer la arquitetura del procesador, cmd
+   echo %PROCESSOR_ARCHITECTURE%
+   ```
+
+   [link](https://www.docker.com/products/docker-desktop/) docker desktop es la aplicación visual que incluye todo: el Daemon, el Cliente, y una interfaz gráfica muy amigable.
+
+   *IMPORTANTE:* Se debe ejcutar el .exe como administrador, si nos arroja un alerta de permisos elevados. debemos eliminar la carpeta de dockerdesktop.
+   `c:\programdata > DockerDesktop` y vaciar los archivos temporales `%temp%` eliminar todo, y de nuevo ejecutar como administrador el .exe
+
+3. Verificar instalación.
+
+   ```powershell
+   # Deveria mostrar la version instalada.
+   docker --version
+   
+   # Ejecutar, si todo esta bien devolvera el mensaje.
+   docker run hello-world
+   
+   <# 
+   En caso de error, abrir la app de docker y ejecutar de
+   nuevo el comando.
+   #>
+   ```
+
+#### COMANDOS INICIALES LINUX
 
 :round_pushpin: **docker --version**
 
@@ -151,52 +210,6 @@ Agregar nuestro usuario al grupo de docker, para no ejecutar sudo con cada coman
 
 Despues de agregar un usuario a un grupo, necesitamos cerrar sesion y volver a iniciarla para que los cambios surtan efecto. o simplemente ejecutar el comando dado.
 
-:old_key: ***WINDOWS***
-
-Docker en windows usa WSL2 por debajo para correr contenedores Linux, Es lo primero que debemos activar.
-
-1. Abrir powershell como administrador.
-
-   ```powershell
-   # Este comando instalaria  El Subsistema de Windows para Linux
-   wsl --install
-   ```
-
-2. Descargar e instalar docker.
-
-   ```cmd
-   # Conocer la arquitetura del procesador, cmd
-   echo %PROCESSOR_ARCHITECTURE%
-   ```
-
-   [link](https://www.docker.com/products/docker-desktop/) docker desktop es la aplicación visual que incluye todo: el Daemon, el Cliente, y una interfaz gráfica muy amigable.
-
-   *IMPORTANTE:* Se debe ejcutar el .exe como administrador, si nos arroja un alerta de permisos elevados. debemos eliminar la carpeta de dockerdesktop.
-   `c:\programdata > DockerDesktop` y vaciar los archivos temporales `%temp%` eliminar todo, y de nuevo ejecutar como administrador el .exe
-
-3. Verificar instalación.
-
-   ```powershell
-   # Deveria mostrar la version instalada.
-   docker --version
-   
-   # Ejecutar, si todo esta bien devolvera el mensaje.
-   docker run hello-world
-   
-   <# 
-   En caso de error, abrir la app de docker y ejecutar de
-   nuevo el comando.
-   #>
-   ```
-
-:file_folder: Los comandos se agrupan por categorías.
-
-Docker CLI
-|--- Imágenes -> docker image
-|--- Contenedores -> docker container
-|--- Volúmenes -> docker volumne
-|--- Redes -> docker network
-
 ---
 
 ## Almacen de contenedores
@@ -206,6 +219,14 @@ Docker CLI
 ---
 
 ## COMANDOS
+
+:file_folder: Los comandos se agrupan por categorías.
+
+Docker CLI
+|--- Imágenes -> docker image
+|--- Contenedores -> docker container
+|--- Volúmenes -> docker volumne
+|--- Redes -> docker network
 
 :fire: Ver imágenes disponibles para su descarga
 
@@ -588,6 +609,45 @@ docker create -p<puerto_local>:<puerto_docker>
   Si queremos eliminar todo lo creado por docker compose up, eliminando tambien la red que crea automaticamente
   
   `docker compose down`
+
+## DOCKERFILE
+
+Dockerfile es un archivo de texto que contiene instrucciones para construir una imagen de Docker automáticamente.
+
+:bulb: Ejemplo:
+```Dockerfile
+# FROM → define la imagen base.
+# WORKDIR → establece el directorio de trabajo.
+# COPY → copia archivos desde tu computadora al contenedor.
+# RUN → ejecuta comandos durante la construcción.
+# CMD → define el comando que se ejecuta al iniciar el contenedor.
+
+# Imagen base
+FROM python:3.12
+
+# Carpeta de trabajo dentro del contenedor
+WORKDIR /app
+
+# Copiar archivos
+COPY . .
+
+# Instalar dependencias
+RUN pip install -r requirements.txt
+
+# Comando para iniciar la app
+CMD ["python", "main.py"]
+```
+
+CONSTRUIR IMAGEN
+```Python
+# Comando
+docker build -t [nombre_imagen] [ruta_dockerfile]
+# Ejemplo
+docker build -t prueba .
+```
+
+CORRER CONTENEDOR
+`docker run [nombre_imagen]`
 
 ## VOLUMES
 

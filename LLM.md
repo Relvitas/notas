@@ -10,15 +10,11 @@ Grandes modelos de lenguaje, son modelos de inteligencia artificial entrenados c
 
    Documentación: [URL](https://docs.ollama.com/quickstart)
 
-   Modelos: [
+   Modelos: 
 
-   qwen3-coder : "Uso diario",
-
-   qwen2.5-coder:3b : "Modelo rapido",
-
-   deepseek-coder-v2:16b : "Programación pura",
-
-   ]
+   - qwen3-coder : "Uso diario"
+   - qwen2.5-coder:3b : "Modelo rapido"
+   - deepseek-coder-v2:16b : "Programación pura"
 
    :pushpin: Abrir menú interactivo: `ollama` y se navega con las flechas.
 
@@ -32,8 +28,6 @@ Grandes modelos de lenguaje, son modelos de inteligencia artificial entrenados c
 6. Instalar OpenCode: [URL](https://opencode.ai/docs/es/windows-wsl)
    1.  Abrir WSL + ubutnu y ejecutar `curl -fsSL https://opencode.ai/install | bash` para finalizar `source ~/.bashrc`
    2. abrir el app `opencode`
-
-
 
 ```python
 '''
@@ -78,3 +72,44 @@ WSL mapea automaticamente el localhost de ubuntu al de nuestro windows, por esto
 '''
 ```
 
+### OPENCODE
+
+Guia para instalar OpenCode: [URL](https://opencode.ai/docs/es).
+:key: Configurar OpenCode para que detecte modelos locales de Ollama:
+
+1. Abrir ubicacion del archivo JSON de Ollama.
+`~/.config/opencode/opencode.json`
+2. Abrir con el json con editor.
+`[vim, nano]`
+3. Pegar la siguiente estructura:
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama",
+
+      "options": {
+        "baseURL": "http://127.0.0.1:11434/v1"
+      },
+
+      "models": {
+        "qwen3-coder:latest": {
+          "name": "Qwen3 Coder",
+          "tools": true
+        },
+
+        "deepseek-coder-v2:16b": {
+          "name": "DeepSeek Coder V2 16B",
+          "tools": true
+        }
+      }
+    }
+  },
+
+  "model": "ollama/qwen3-coder:latest",
+  "small_model": "ollama/deepseek-coder-v2:16b"
+}
+```

@@ -284,7 +284,7 @@ Herramienta estándar de Python (desde Python 3.3)
 
 2. Activar entorno virtual
 
-   1. `source mi_env/Scripts/activate` | linux, gitbash
+   1. `source mi_env/bin/activate` | linux, gitbash
 
    2. `.venv\Scripts\activate.bat` | windows 
 

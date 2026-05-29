@@ -8,11 +8,17 @@
 
 ## Instalacion
 
-1. sudo apt install postgresql
+```python
+# Instalacion de postgres para practicar
+sudo apt install postgresql
 
-2. Seguir la documentacion si requerimos la ultima version: [PostgreSQL: Linux downloads (Ubuntu)](https://www.postgresql.org/download/linux/ubuntu/)
+# Instalacion de postgres para desarrollo, este incluye herramientas extras.
+sudo apt install postgresql postgresql-contrib
+```
 
+1. Seguir la documentacion si requerimos la ultima version: [PostgreSQL: Linux downloads (Ubuntu)](https://www.postgresql.org/download/linux/ubuntu/)
 
+Comprobar si se instalo correctamente: `psql --version`
 
 ---
 
