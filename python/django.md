@@ -1,12 +1,13 @@
 # DJANGO
 
-* Verificar que versiones de django es compatible con python
-
-    [FAQ: Installation | Django documentation | Django](https://docs.djangoproject.com/en/5.1/faq/install/#faq-python-version-support)
+Es un framework de desarrollo web de alto nivel para Python.
 
 ## INSTALACION DJANGO
 
 Versiones disponibles y como instalar: [URL](https://www.djangoproject.com/download/)
+
+* *Global:* Linux `python -m pip install Django==version`
+* *Por proyecto:* Linux. Este se ejecuta dentro de un entorno virtual `python -m pip install Django==version`
 
 ### COMPROBAR VERSION INSTALADA
 
@@ -21,18 +22,121 @@ python -m django --version
 
 ## COMANDOS
 
-* Iniciar proyecto en carpeta actual: `django-admin startproject config .`
+* Herramientas Django: `django-admin`, este comando nos muestra una lista de funciones que posee el comando.
+* Iniciar proyecto
+  * Carpeta actual:
+  `django-admin startproject config .`, crea el proyecto en donde el paquete de se renombra como config.
+  * Carpeta nueva:
+  `django-admin startproject [nombre_proyecto]`, de esta forma el paquete de configuración toma el nombre que le dimos al proyecto.
 * Iniciar servidor de desarrollo: `python manage.py runserver`
+* Crear una app: `python manage.py startapp [nombre_aplicacion]` Importante entender que una aplicación es una funcionalidad, podemos verlos como paquetes y el nombre va en singular.
 
-## ARCHIVOS
+## ARCHIVOS DE CONFIGURATION
 
 * `manage.py:` Este es como el control remoto del proyecto. En este archivo le damos ordenes a Django.
 * `mysite/ | config/` Este es el cerebro del proyecto, este nombre se utiliza para importar cosas.
 * `mysite/__init__.py:` Es un archivo vació, su misión es indicar que la carpeta es un paquete de python.
-* `mysite/settings.py:`Este es el archivo de configuración.
-* `mysite/urls.py:` Este es el archivo de rutas, indica a donde enviar un usuario.
+* `mysite/settings.py:`Este es el archivo de configuración. Contiene cosas como la base de datos, rutas, apps instaladas.
+* `mysite/urls.py:` Este es el archivo de rutas y vistas
 * `mysite/asgi.py:` Es la entrada para servidores modernos. Django puede hacer varias cosas al mismo tiempo.
 * `mysite/wsgi.py:` Es la entrada para servidores tradicionales.
+
+## ARCHIVOS DE UNA APP
+
+* `manage.py:` Aquí defines la estructura de datos (tablas de la base de datos).
+* `views.py:` Contiene la lógica que responde peticiones HTTP. Las vistas reciben requests y devuelven responses.
+* `admin.py:` Sirve para registrar modelos en el panel admin de Django.
+* `apps.py:` Configuración de la app. Django usa esto internamente para reconocer la app. Normalmente casi nunca lo tocas al inicio.
+* `test.py:` Para pruebas automáticas. Aquí escribes tests para validar que todo funciona.
+* `migrations/:` Carpeta donde Django guarda cambios de la base de datos.
+* `urls.py:` Django NO lo crea automáticamente en la app, pero casi siempre deberías crear uno. Sirve para las rutas de la app.
+* `templates/:` HTML de la app.
+* `static/:` CSS, JS, imágenes.
+
+## EXTENSIONES
+
+* [Django](https://marketplace.visualstudio.com/items?itemName=batisteo.vscode-django)
+* [Django Snippets](https://marketplace.visualstudio.com/items?itemName=bibhasdn.django-snippets)
+* [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+* [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance)
+* [Python Debugger](https://marketplace.visualstudio.com/items?itemName=ms-python.debugpy)
+* [Autopep8](https://marketplace.visualstudio.com/items?itemName=ms-python.autopep8)
+* [Python Indent](https://marketplace.visualstudio.com/items?itemName=KevinRose.vsc-python-indent)
+
+## URLs y Views
+
+Cuando alguien entra a una pagina web `misitio.com/hola` Django tiene que preguntarse 🤔 “¿Quién debe responder esta dirección?” es hay cuando entra en juego:
+
+urls.py → el mapa 🗺️
+views.py → las personas que responden 📞
+
+```python
+mi_proyecto/
+│
+├── mi_proyecto/
+│   ├── settings.py
+│   ├── urls.py   ← URLS DEL PROYECTO
+│
+├── juegos/
+│   ├── views.py
+│   ├── urls.py   ← URLS DEL APP
+```
+
+:pushpin: 1. urls.py DEL PROYECTO
+Este es el jefe principal 👑.
+Se encarga de decir:
+
+👉 “Si alguien entra a `/juegos/`, envíalo al app juegos”.
+
+Ejemplo:
+```python
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    # Todas las rutas que empiecen con juegos/
+    # serán manejadas por el archivo juegos/urls.py”
+    path('juegos/', include('juegos.urls')),
+]
+```
+
+:pushpin: 2. urls.py DEL APP
+
+Ahora el app recibe el trabajo 📬.
+Este archivo decide:
+👉 “¿Qué view debe responder?”
+
+Ejemplo:
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.inicio),
+    path('pokemon/', views.pokemon),
+]
+```
+
+El `''` significa:
+👉 “la ruta vacía”
+Entonces: `/juegos/`
+usa: `views.inicio`
+
+:pushpin: 3. views.py
+Aquí vive la lógica 🧠.
+Las views son funciones que responden al usuario.
+
+Ejemplo:
+```python
+from django.http import HttpResponse
+
+def inicio(request):
+    return HttpResponse("Página principal")
+s
+def pokemon(request):
+    return HttpResponse("Página Pokémon")
+```
 
 ## Instalar apache y mod_wsgi
 

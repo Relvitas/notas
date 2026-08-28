@@ -165,6 +165,27 @@ pares = list(filter(lambda x: x % 2 == 0, numeros))
 print(pares)  # Salida: [2, 4, 6, 8, 10]
 ```
 
+## FUNCIONES HOF
+
+Higher-Order Function "Función de Orden Superior". Es una función que puede:
+
+* Recibir otra función como dato.
+* Devolver una función.
+
+```python
+def saludar():
+    print("hola")
+
+def ejecutar(funcion)
+    funcion()
+
+# Uso:
+ejecutar(saludar) # >>> Hola
+'''
+Ejecutar recibió una función saludar como si fuera un paquete, ejecuta la función que me dieron.
+'''
+```
+
 ## FUNCIONES PREDEFINIDAS
 
 * `round(objeto, ndcimales)` redondea un numero a unumero especifico de lugar de decimales. Por defecto, esta funcion redondea al entero mas cercano y devuelve un numero entero sin decimales.

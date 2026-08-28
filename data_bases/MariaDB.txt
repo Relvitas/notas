@@ -38,6 +38,9 @@ De Pregunta a Query
 -> El orden en que quiero presentar mi informacion = ORDER BY
 -> Los filtros que quiero que mis datos agrupados tengan = HAVING
 
+Acceder a base de datos desde terminal
+* sudo mysql o sudo mariadb -> esto nos conectara como administrado de base de datos.
+
 SENTENCIAS BASICAS
 
 * Comentar codigo

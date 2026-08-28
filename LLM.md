@@ -2,7 +2,73 @@
 
 Grandes modelos de lenguaje, son modelos de inteligencia artificial entrenados con cantidades masivas de texto. Su función es comprender, resumir, predecir y generar lenguaje humano de manera natural.
 
-## INSTALAR LOCAL
+Conocer el top de modelos: [URL](https://llm-stats.com/leaderboards/open-llm-leaderboard)
+
+## CONCEPTOS
+
+* ***Open-Weight:*** un modelo Open-Weight significa que los pesos entrenados del modelo están disponibles para descargar y ejecutar. No confundir con open-source
+  
+  ```python
+  # Por ejemplo: 
+  Llama 3.1, Qwen3-Coder, DeepSeek Coder V2
+  # son modelos cuyos pesos pueden descargarse y ejecutarse localmente.
+  ```
+
+* ***Parametros:*** Son los pesos que ha aprendido durante el entrenamiento. Cuantos más parámetros tiene un modelo, más capacidad suele tener para representar conocimiento y razonamiento, pero también consume más memoria y suele ser más lento.
+  
+  ```python
+  # Ejemplos típicos:
+  7B = ~7 mil millones de parámetros
+  14B = ~14 mil millones
+  32B = ~32 mil millones
+  ```
+
+* ***Cuantización:*** Es una técnica para reducir el tamaño de un modelo de IA sacrificando un poco de precisión a cambio de usar mucha menos memoria y ser más rápido. Recomendado(Q4_K_M), equilibrio entre cálida y tamaño. "`ollama show qwen3-coder`" Con este comando podemos ver information de tamaño/cuantización de un modelo.
+  
+  ```python
+  | Cuantización | Calidad   | RAM necesaria      |
+  | ------------ | --------- | ------------------ |
+  | Q8           | Muy alta  | Más memoria        |
+  | Q6           | Alta      | Menos memoria      |
+  | Q5           | Muy buena | Bastante eficiente |
+  | Q4           | Buena     | Muy eficiente      |
+  ```
+
+* ***Token:*** Los modelos no cuentan palabras sino tokens.
+  
+  ```python
+  # Regla rápida
+  1 token ≈ 0.75 palabras | 1000 tokens ≈ 700-800 palabras
+  # Entre mas contexto mas consumo de RAM | VRAM
+  ```
+
+* ***Contexto:*** El contexto es toda la información que el modelo puede "tener presente" en una conversación o tarea antes de generar la siguiente respuesta.
+  :bulb: ¿Qué entra en el contexto?:
+  * Tus mensajes anteriores.
+  * Las respuestas del modelo.
+  * El prompt del sistema.
+  * Archivos que OpenCode haya leído.
+  * Código fuente que se haya enviado al modelo.
+  
+  ```python
+  | Modelo | Contexto aproximado |
+  | ------ | ------------------- |
+  | 8K     | ~8.000 tokens       |
+  | 32K    | ~32.000 tokens      |
+  | 128K   | ~128.000 tokens     |
+  | 256K   | ~256.000 tokens     |
+  ```
+
+* ***Formato:*** Es normalmente es la forma en la que el modelo se almacena en el disco.
+  * GGUF → usado por Ollama y llama.cpp.
+  * Safetensors → muy usado en Hugging Face.
+  * PyTorch (.bin) → formato clásico de PyTorch.
+
+## CALCULAR CONSUMO DE RAM DE UN MODELO
+
+Para esto miramos el tamaño de la cuantización y el tamaño del contexto, sumamos la cuantización y el contexto y le restamos la mitad del contexto esto nos daría un aproximado del consumo en RAM.
+
+## HERRAMIENTAS PARA CORRER MODELOS EN LOCAL
 
 1. [Ollama](https://ollama.com/download):
 
@@ -20,12 +86,12 @@ Grandes modelos de lenguaje, son modelos de inteligencia artificial entrenados c
 
    :pushpin: Correr un modelo `ollama run <nombre_modelo>`
 
-2. Instalar WSL: [URL](https://learn.microsoft.com/es-es/windows/wsl/install)  
-3. Instar Ubuntu: `wsl --install -d Ubuntu`
-4. Abrir Ubuntu: `wsl -d Ubuntu` | o desde inicio.
-5. Dentro de Ubuntu:
+1. Instalar WSL: [URL](https://learn.microsoft.com/es-es/windows/wsl/install)  
+2. Instar Ubuntu: `wsl --install -d Ubuntu`
+3. Abrir Ubuntu: `wsl -d Ubuntu` | o desde inicio.
+4. Dentro de Ubuntu:
    `sudo apt update y sudo apt install -y curl bash`
-6. Instalar OpenCode: [URL](https://opencode.ai/docs/es/windows-wsl)
+5. Instalar OpenCode: [URL](https://opencode.ai/docs/es/windows-wsl)
    1.  Abrir WSL + ubutnu y ejecutar `curl -fsSL https://opencode.ai/install | bash` para finalizar `source ~/.bashrc`
    2. abrir el app `opencode`
 

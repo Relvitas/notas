@@ -18,7 +18,8 @@ sudo apt install postgresql postgresql-contrib
 
 1. Seguir la documentacion si requerimos la ultima version: [PostgreSQL: Linux downloads (Ubuntu)](https://www.postgresql.org/download/linux/ubuntu/)
 
-Comprobar si se instalo correctamente: `psql --version`
+* Comprobar si se instalo correctamente: `psql --version`
+* Obtener el usuario por defecto: `id postgres | awk '{print $1}'` La clave por defecto es postgres
 
 ---
 
